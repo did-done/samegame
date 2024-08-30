@@ -24,6 +24,7 @@ html {
 #count div{
     display: flex;
     margin-left: 5px;
+    width: 100%;
 }
 
 #count img {
