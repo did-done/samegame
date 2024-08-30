@@ -9,17 +9,63 @@
 <body>
     <div id="game-container">
         <h1>柊木悠利さめがめ</h1>
+        <div id="count">
+            <div id="blue-count">
+                <img src="./image/youri_blue.png"/>
+                <div class="count-view">
+                    <span>&times;</span>
+                    <p id="blue-count-view">99</p>
+                </div>
+            </div>
+            <div id="yellow-count">
+                <img src="./image/youri_yellow.png"/>
+                <div class="count-view">
+                    <span>&times;</span>
+                    <p id="yellow-count-view">99</p>
+                </div>
+            </div>
+            <div id="red-count">
+                <img src="./image/youri_red.png"/>
+                <div class="count-view">
+                    <span>&times;</span>
+                    <p id="red-count-view">99</p>
+                </div>
+            </div>
+            <div id="pink-count">
+                <img src="./image/youri_pink.png"/>
+                <div class="count-view">
+                    <span>&times;</span>
+                    <p id="pink-count-view">99</p>
+                </div>
+            </div>
+            <div id="green-count">
+                <img src="./image/youri_green.png"/>
+                <div class="count-view">
+                    <span>&times;</span>
+                    <p id="green-count-view">99</p>
+                </div>
+            </div>
+            <div id="total-count">
+                Total
+                <div class="count-view">
+                    <span>&times;</span>
+                    <p id="total-count-view">99</p>
+                </div>
+            </div>
+        </div>
+        
         <div id="controls">
             <select id="size-select">
-                <option value="6">S (6x6)</option>
-                <option value="12">M (12x12)</option>
-                <option value="18">L (18x18)</option>
+                <!--<option value="6">S (6x6)</option>-->
+                <option value="12">中級 (12x12)</option>
+                <option value="18">上級 (18x18)</option>
             </select>
-            <button id="start-over">Start Over</button>
+            <button id="start-over">再スタート</button>
         </div>
+        
         <div id="game-board">
         </div>
-        <p class="information"><span id="count">がんばれ！</span></p>
+        <p class="information"><span id="countSelect">がんばれ！</span></p>
         <p class="information"> <span id="nowScore">がんばれ！</span></p>
         <p class="information">スコア: <span id="score">0</span></p>
     </div>
@@ -35,9 +81,6 @@
                 <p id="resultPoint">スコアは777点だよ！</p>
             </div>
         </div>
-    </div>
-    <div hidden>
-        <img id="youriStage" src="./image/youri_stage.png">
     </div>
     <script src="js/samegame.js"></script>
 </body>
