@@ -1,9 +1,14 @@
-let BOARD_SIZE = 6;
+//ボードの初期値取得
+var sizeSelect = document.getElementById('size-select');
+var bordSelect = sizeSelect.selectedIndex;
+let BOARD_SIZE = sizeSelect[bordSelect].value;
+
 const COLORS = ['blue', 'yellow', 'red', 'pink', 'green'];
 
 let board = [];
 let score = 0;
 let audioContext;
+var countColor = {};
 
 function initializeBoard() {
     board = [];
@@ -19,6 +24,7 @@ function renderBoard() {
     const gameBoard = document.getElementById('game-board');
     gameBoard.innerHTML = '';
     gameBoard.style.gridTemplateColumns = `repeat(${BOARD_SIZE}, auto)`;
+    countColor = {};
     for (let i = 0; i < BOARD_SIZE; i++) {
         for (let j = 0; j < BOARD_SIZE; j++) {
             const cell = document.createElement('img');
@@ -26,6 +32,15 @@ function renderBoard() {
             if(board[i][j] != null){
               cell.src = './image/youri_' + board[i][j] + '.png';
               cell.onclick = () => handleClickSelect(i, j);
+              cell.setAttribute('value', i + ',' + j);
+              
+              //残り数をカウント
+              for (var k = 0; k < COLORS.length; k++) {
+                var elm = COLORS[k];
+                if(elm == board[i][j]){
+                  countColor[elm] = (countColor[elm] || 0) + 1;
+                }
+              }
             }
             else{
               cell.src = './image/dummy.png';
@@ -33,6 +48,23 @@ function renderBoard() {
             gameBoard.appendChild(cell);
         }
     }
+    //カウントを表示
+    var totalCount = 0;
+    for(i = 0; i < COLORS.length; i++) {
+      var nowColor = COLORS[i];
+      
+      nowColorView = document.getElementById(nowColor + '-count-view');
+      
+      nowColorView.innerHTML = countColor[nowColor];
+      
+      totalCount += countColor[nowColor];
+      
+    }
+    //合計を表示
+    nowColorView = document.getElementById('total-count-view');
+    
+    nowColorView.innerHTML = totalCount;
+    
 }
 
 async function handleClickSelect(row, col) {
@@ -41,7 +73,7 @@ async function handleClickSelect(row, col) {
   if (group.length > 1) {
     //選択範囲の背景を変更
     nowScore = pointCalc(group.length);
-    document.getElementById('count').textContent = '今'+group.length+'個繋がってるよ！';
+    document.getElementById('countSelect').textContent = '今'+group.length+'個繋がってるよ！';
     document.getElementById('nowScore').textContent = '消したら'+nowScore+'点になるよ！';
     await selectGroup(group);
   }
@@ -50,7 +82,18 @@ async function handleClickSelect(row, col) {
 function selectGroup(group) {
   
   // 初期化(他の背景消し)
-  renderBoard();
+  const selectedCells = document.getElementsByClassName('select');
+  var selectedCount = selectedCells.length;
+  
+  var selectedValue;
+  if(selectedCount > 0){
+    for(var i = 0; i < selectedCount; i++){
+      selectedValue = selectedCells[0].getAttribute('value');
+      const [row, col] = selectedValue.split(',').map(Number);
+      selectedCells[0].onclick = () => handleClickSelect(row, col);
+      selectedCells[0].classList.remove('select');
+    }
+  }
   
   //セルの背景を変更
     return new Promise(resolve => {
@@ -81,11 +124,10 @@ async function handleClick(row, col) {
         score += nowScore;
         document.getElementById('score').textContent = score;
         document.getElementById('nowScore').textContent = 'がんばれ！';
-    document.getElementById('count').textContent = 'がんばれ！';
+        document.getElementById('countSelect').textContent = 'がんばれ！';
         renderBoard();
         if (isGameOver()) {
             openResult(score);
-            //alert('ゲームオーバー！最終スコア: ' + score);
         }
     }
 }
@@ -206,7 +248,7 @@ function pointCalc(count) {
     return (count - 1) * (count - 1 );
     
 }
-
+/*
 function stageCreate(){
     
     var stage = document.getElementById('youriStage');
@@ -223,14 +265,14 @@ function stageCreate(){
         var context = canvas.getContext('2d');
         context.drawImage(stage, 0, 0, 20, 20);
         
-        /*
+        
         // 画像読み込み
         const chara = new Image();
         chara.src = './image/youri_stage.png';  // 画像のURLを指定
         chara.onload = () => {
           context.drawImage(chara, 0, 0);
         };
-        */
+        
         
         var image = context.getImageData(0, 0, 20, 20);
         
@@ -242,7 +284,7 @@ function stageCreate(){
         
     }
 }
-
+*/
 const result = document.getElementById('result');
 const resultBg = document.getElementById('result-bg');
 function openResult(score){
