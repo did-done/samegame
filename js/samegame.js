@@ -84,7 +84,8 @@ async function handleClick(row, col) {
     document.getElementById('count').textContent = 'がんばれ！';
         renderBoard();
         if (isGameOver()) {
-            alert('ゲームオーバー！最終スコア: ' + score);
+            openResult(score);
+            //alert('ゲームオーバー！最終スコア: ' + score);
         }
     }
 }
@@ -242,6 +243,38 @@ function stageCreate(){
     }
 }
 
+const result = document.getElementById('result');
+const resultBg = document.getElementById('result-bg');
+function openResult(score){
+    
+    resultPoint = document.getElementById('resultPoint');
+    
+    resultPoint.innerHTML = "スコアは" + score + "点だよ！";
+    
+    result.style.display = "block";
+    resultBg.style.display = "block";
+    
+}
+
+function closeResult(){
+    
+    result.style.display = "none";
+    resultBg.style.display = "none";
+    
+}
+
+document.getElementById('result-close').addEventListener('click', (e) => {
+    result.style.display = "none";
+    resultBg.style.display = "none";
+    
+});
+
+document.getElementById('result').addEventListener('click', (e) => {
+    if(e.target == result){
+        result.style.display = "none";
+        resultBg.style.display = "none";
+    }
+});
 
 document.getElementById('start-over').addEventListener('click', startOver);
 document.getElementById('size-select').addEventListener('change', changeBoardSize);
