@@ -13,6 +13,32 @@ html {
     background-image: url("../image/youri_back.png");
     background-size: contain;
 }
+#count {
+    display: flex;
+}
+
+#count div{
+    display: flex;
+    margin-left: 5px;
+}
+
+#count img {
+    max-width: 40px;
+}
+
+#total-count {
+    align-items: center;
+}
+
+.count-view {
+    align-items: center;
+    margin-left: 0 !important;
+}
+
+.count-view p {
+    margin: 0;
+}
+
 .cell {
     width: 100%;
     height: auto;
