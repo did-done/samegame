@@ -25,6 +25,7 @@ html {
     display: flex;
     margin-left: 5px;
     width: 100%;
+    max-width: 80px;
 }
 
 #count img {
