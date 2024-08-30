@@ -28,6 +28,7 @@ html {
 
 #count img {
     max-width: 40px;
+    width: 100%;
 }
 
 #total-count {
