@@ -35,15 +35,18 @@ html {
 
 #total-count {
     align-items: center;
+    width: 100%;
 }
 
 .count-view {
     align-items: center;
     margin-left: 0 !important;
+    width: 100%;
 }
 
 .count-view p {
     margin: 0;
+    width: 100%;
 }
 
 .cell {
