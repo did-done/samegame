@@ -30,6 +30,7 @@ html {
 
 #count img {
     max-width: 40px;
+    min-width: 0;
     width: 100%;
 }
 
