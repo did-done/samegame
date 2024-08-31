@@ -1,5 +1,72 @@
+@font-face {
+	font-family: 'MyFont';
+	src: url("../font/BestTen-CRT.otf");
+}
+
 html {
-  touch-action: manipulation;
+    touch-action: manipulation;
+    background-image: url("../image/bg_image.jpg");
+    font-family: MyFont;
+}
+#game-header {
+    display: flex;
+}
+#game-header div {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+#youri {
+    max-width: 60px;
+}
+#restart {
+    max-width: 90px;
+    cursor: pointer;
+}
+#fukidashi{
+    max-width:250px;
+    height: auto;
+    position: relative;
+}
+#fukidashi img{
+    width:100%;
+}
+#fukidashi p{
+    position: absolute;
+    font-size: 18px;
+    padding: 0;
+    margin: 0;
+    transform: translate(-50%,-50%);
+}
+#countSelect_p{
+    top: 20%;
+    left: 50%;
+}
+#nowScore_p{
+    top: 50%;
+    left: 50%;
+}
+#total-score-area{
+    flex-direction:column;
+    color: #984AA0;
+}
+#total-score {
+    text-align: right;
+    font-size: 25px;
+    margin: 0 0 5px 0 !important;
+}
+#total-score p {
+    margin: 0;
+}
+#score-div {
+    text-align: right;
+    font-size: 25px;
+    margin: 0 0 5px 0 !important;
+}
+#score {
+    text-align: right;
+    maegin: 0;
+    width: 50px;
+    color: #DA70D6;
 }
 #game-container {
     display: flex;
@@ -72,8 +139,8 @@ html {
 .information {
     margin: 0px;
 }
-#start-over, #size-select {
-    padding: 10px 20px;
+#size-select {
+    padding: 5px 5px;
     font-size: 16px;
     cursor: pointer;
     margin: 10px;
@@ -148,4 +215,7 @@ html {
     padding: 15px 25px;
 }
 
+.right{
+    text-align: right;
+}
 
