@@ -52,7 +52,7 @@ html {
 }
 #total-score {
     text-align: right;
-    font-size: clamp(14px, 3vw, 25px);
+    font-size: clamp(1px, 3vw, 25px);
     margin: 0 0 5px 0 !important;
 }
 #total-score p {
