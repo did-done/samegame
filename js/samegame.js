@@ -282,6 +282,10 @@ function startOver(nextFlag) {
         document.getElementById('stage').innerHTML = 1;
     }
     
+    changeYouri("youri_magao");
+    document.getElementById('countSelect').textContent = 'がんばれ！';
+    document.getElementById('nowScore').textContent = 'がんばれ！';
+    
     document.getElementById('score').textContent = score;
     initializeBoard();
     renderBoard();
@@ -386,8 +390,8 @@ function clickYouri(){
     }
     else if(youriValue == 3){
         changeYouri("youri_magao_ikari");
-        document.getElementById('countSelect').textContent = 'ゆーりにさわらないで';
-        document.getElementById('nowScore').textContent = ' ';
+        document.getElementById('countSelect').textContent = 'ゆーりに';
+        document.getElementById('nowScore').textContent = 'さわらないで';
     }
     else if(youriValue >= 4 && youriValue <= 6){
         changeYouri("youri_magao_ten");
