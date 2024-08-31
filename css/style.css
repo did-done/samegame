@@ -28,7 +28,7 @@ html {
     position: relative;
 }
 #fukidashi img{
-    width:100%;
+    width: 100%;
     height: 100%;
 }
 #fukidashi p{
@@ -52,7 +52,7 @@ html {
 }
 #total-score {
     text-align: right;
-    font-size: 25px
+    font-size: 25px;
     margin: 0 0 5px 0 !important;
 }
 #total-score p {
@@ -103,12 +103,13 @@ html {
 }
 
 #total-count {
-    align-items: center;
+    align-items: end;
     width: 100%;
+    height: 40px;
 }
 
 .count-view {
-    align-items: center;
+    align-items: end;
     margin-left: 0 !important;
     width: 100%;
 }
@@ -116,6 +117,10 @@ html {
 .count-view p {
     margin: 0;
     width: 100%;
+}
+
+.unit{
+    font-size: 11px;
 }
 
 .cell {
