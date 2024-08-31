@@ -23,8 +23,7 @@ html {
     cursor: pointer;
 }
 #fukidashi{
-    max-width:250px;
-    min-width: 220px;
+    wodth: 250px;
     height: auto;
     position: relative;
 }
