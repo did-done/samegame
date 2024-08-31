@@ -2,8 +2,12 @@
 var sizeSelect = document.getElementById('size-select');
 var bordSelect = sizeSelect.selectedIndex;
 let BOARD_SIZE = sizeSelect[bordSelect].value;
+//デバッグ用
+//BOARD_SIZE = 6;
 
 const COLORS = ['blue', 'yellow', 'red', 'pink', 'green'];
+//デバッグ用
+//const COLORS = ['blue'];
 
 let board = [];
 let score = 0;
@@ -30,7 +34,7 @@ function renderBoard() {
             const cell = document.createElement('img');
             cell.className = 'cell';
             if(board[i][j] != null){
-              cell.src = './image/youri_' + board[i][j] + '.png';
+              cell.src = './image/puzzle/youri_' + board[i][j] + '.png';
               cell.onclick = () => handleClickSelect(i, j);
               cell.setAttribute('value', i + ',' + j);
               
@@ -55,9 +59,13 @@ function renderBoard() {
       
       nowColorView = document.getElementById(nowColor + '-count-view');
       
-      nowColorView.innerHTML = countColor[nowColor];
-      
-      totalCount += countColor[nowColor];
+      if(countColor[nowColor]){
+          nowColorView.innerHTML = countColor[nowColor];
+          totalCount += countColor[nowColor];
+      }
+      else{
+          nowColorView.innerHTML = 0;
+      }
       
     }
     //合計を表示
@@ -73,6 +81,12 @@ async function handleClickSelect(row, col) {
   if (group.length > 1) {
     //選択範囲の背景を変更
     nowScore = pointCalc(group.length);
+    if(nowScore == 1){
+        changeYouri("youri_naki_ase");
+    }
+    else{
+        changeYouri("youri_magao");
+    }
     document.getElementById('countSelect').textContent = '今'+group.length+'個繋がってるよ！';
     document.getElementById('nowScore').textContent = '消したら'+nowScore+'点になるよ！';
     await selectGroup(group);
@@ -123,8 +137,31 @@ async function handleClick(row, col) {
         nowScore = pointCalc(group.length);
         score += nowScore;
         document.getElementById('score').textContent = score;
-        document.getElementById('nowScore').textContent = 'がんばれ！';
-        document.getElementById('countSelect').textContent = 'がんばれ！';
+        var scoreInt = parseInt(score);
+        //トータル個数取得
+        var totalCount = document.getElementById('total-count-view').innerHTML;
+        var totalCountInt = parseInt(totalCount);
+        
+        if(group.length >= 30){
+            changeYouri("youri_egao_heart");
+            document.getElementById('countSelect').textContent = 'いっぱい消せて'; 
+            document.getElementById('nowScore').textContent = 'すごーい！';
+        }
+        else if(scoreInt >= 3000 && totalCountInt <= 20){
+            changeYouri("youri_egao_heart");
+            document.getElementById('countSelect').textContent = '天才！'; 
+            document.getElementById('nowScore').textContent = '君は天才！';
+        }
+        else if(scoreInt >= 100 && totalCountInt <= 20){
+            changeYouri("youri_magao_ase");
+            document.getElementById('countSelect').textContent = 'いっぱい繋げると'; 
+            document.getElementById('nowScore').textContent = '点数が高くなるんだよ';
+        }
+        else{
+            changeYouri("youri_magao");
+            document.getElementById('countSelect').textContent = 'がんばれ！';
+            document.getElementById('nowScore').textContent = 'がんばれ！';
+        }
         renderBoard();
         if (isGameOver()) {
             openResult(score);
@@ -231,8 +268,20 @@ function isGameOver() {
     return true;
 }
 
-function startOver() {
+function startOver(nextFlag) {
     score = 0;
+    
+    //全消しなら次のステージへ
+    if(nextFlag){
+        score = document.getElementById('score').innerHTML;
+        score = parseInt(score) + 1000;
+        stage = document.getElementById('stage').innerHTML;
+        document.getElementById('stage').innerHTML = parseInt(stage) + 1
+    }
+    else{
+        document.getElementById('stage').innerHTML = 1;
+    }
+    
     document.getElementById('score').textContent = score;
     initializeBoard();
     renderBoard();
@@ -240,7 +289,7 @@ function startOver() {
 
 function changeBoardSize() {
     BOARD_SIZE = parseInt(document.getElementById('size-select').value);
-    startOver();
+    startOver(false);
 }
 
 function pointCalc(count) {
@@ -278,7 +327,7 @@ function stageCreate(){
         
         for(i = 0;i < context.width;i++){
             for(j = 0;j < context.height;j++){
-                
+                startOver(true);
             }
         }
         
@@ -296,12 +345,62 @@ function openResult(score){
     result.style.display = "block";
     resultBg.style.display = "block";
     
+    //全消しなら次のステージ
+    totalCount = document.getElementById('total-count-view').innerHTML;
+    if(totalCount == 0){
+      startOver(true);
+    }
 }
 
 function closeResult(){
     
     result.style.display = "none";
     resultBg.style.display = "none";
+    
+}
+
+function changeYouri(mode){
+    
+    var youri = document.getElementById('youri');
+    
+    youri.src = "./image/youri/" + mode + ".png";
+    
+}
+
+function clickYouri(){
+    
+    var youri = document.getElementById('youri');
+    var youriValue = youri.getAttribute('value');
+    
+    youriValue = parseInt(youriValue) + 1;
+    
+    if(youriValue == 1){
+        changeYouri("youri_naki_bikkuri");
+        document.getElementById('countSelect').textContent = '＞＜　　　！';
+        document.getElementById('nowScore').textContent = '何するのー！';
+    }
+    else if(youriValue == 2){
+        changeYouri("youri_naki_guru");
+        document.getElementById('countSelect').textContent = 'ゆーりはリセット';
+        document.getElementById('nowScore').textContent = 'ボタンじゃないよ';
+    }
+    else if(youriValue == 3){
+        changeYouri("youri_magao_ikari");
+        document.getElementById('countSelect').textContent = 'ゆーりにさわらないで';
+        document.getElementById('nowScore').textContent = ' ';
+    }
+    else if(youriValue >= 4 && youriValue <= 6){
+        changeYouri("youri_magao_ten");
+        document.getElementById('countSelect').textContent = '・・・・・';
+        document.getElementById('nowScore').textContent = ' ';
+    }
+    else if(youriValue >= 7){
+        changeYouri("youri_magao_ikari");
+        document.getElementById('countSelect').textContent = 'シャー！！！';
+        document.getElementById('nowScore').textContent = ' ';
+    }
+    
+    youri.setAttribute('value', youriValue);
     
 }
 
@@ -318,7 +417,8 @@ document.getElementById('result').addEventListener('click', (e) => {
     }
 });
 
-document.getElementById('start-over').addEventListener('click', startOver);
+document.getElementById('restart').addEventListener('click', function(){ startOver(false)});
+document.getElementById('youri').addEventListener('click', clickYouri);
 document.getElementById('size-select').addEventListener('change', changeBoardSize);
 
 initializeBoard();
