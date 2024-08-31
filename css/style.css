@@ -54,7 +54,7 @@ html {
 }
 #total-score {
     text-align: right;
-    margin: 0 0 5px 0 !important;
+    margin: 15px 0 0 0 !important;
 }
 #total-score p {
     margin: 0;
