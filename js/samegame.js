@@ -1,11 +1,15 @@
 //ボードの初期値取得
 var sizeSelect = document.getElementById('size-select');
 var bordSelect = sizeSelect.selectedIndex;
-let BOARD_SIZE = sizeSelect[bordSelect].value;
+var [bordX, bordY] = sizeSelect[bordSelect].value.split(',').map(Number);
+
+//let BOARD_SIZE = sizeSelect[bordSelect].value;
 //デバッグ用
 //BOARD_SIZE = 6;
+let BOARD_SIZE_X = bordX;
+let BOARD_SIZE_Y = bordY
 
-const COLORS = ['blue', 'yellow', 'red', 'pink', 'green'];
+const COLORS = ['youri', 'ribbon', 'fox', 'bird', 'cat'];
 //デバッグ用
 //const COLORS = ['blue'];
 
@@ -16,9 +20,9 @@ var countColor = {};
 
 function initializeBoard() {
     board = [];
-    for (let i = 0; i < BOARD_SIZE; i++) {
+    for (let i = 0; i < BOARD_SIZE_Y; i++) {
         board[i] = [];
-        for (let j = 0; j < BOARD_SIZE; j++) {
+        for (let j = 0; j < BOARD_SIZE_X; j++) {
             board[i][j] = COLORS[Math.floor(Math.random() * COLORS.length)];
         }
     }
@@ -27,14 +31,14 @@ function initializeBoard() {
 function renderBoard() {
     const gameBoard = document.getElementById('game-board');
     gameBoard.innerHTML = '';
-    gameBoard.style.gridTemplateColumns = `repeat(${BOARD_SIZE}, auto)`;
+    gameBoard.style.gridTemplateColumns = `repeat(${BOARD_SIZE_X}, auto)`;
     countColor = {};
-    for (let i = 0; i < BOARD_SIZE; i++) {
-        for (let j = 0; j < BOARD_SIZE; j++) {
+    for (let i = 0; i < BOARD_SIZE_Y; i++) {
+        for (let j = 0; j < BOARD_SIZE_X; j++) {
             const cell = document.createElement('img');
             cell.className = 'cell';
             if(board[i][j] != null){
-              cell.src = './image/puzzle/youri_' + board[i][j] + '.png';
+              cell.src = './image/puzzle/' + board[i][j] + '.png';
               cell.onclick = () => handleClickSelect(i, j);
               cell.setAttribute('value', i + ',' + j);
               
@@ -114,7 +118,7 @@ function selectGroup(group) {
         const cells = document.querySelectorAll('.cell');
         group.forEach(key => {
             const [row, col] = key.split(',').map(Number);
-            const index = row * BOARD_SIZE + col;
+            const index = row * BOARD_SIZE_X + col;
             //背景色を赤に設定
             cells[index].classList.add('select');
             //クリック時消えるように設定
@@ -170,7 +174,7 @@ async function handleClick(row, col) {
 }
 
 function findGroup(row, col, color, group = []) {
-    if (row < 0 || row >= BOARD_SIZE || col < 0 || col >= BOARD_SIZE || board[row][col] !== color) {
+    if (row < 0 || row >= BOARD_SIZE_Y || col < 0 || col >= BOARD_SIZE_X || board[row][col] !== color) {
         return group;
     }
     const key = `${row},${col}`;
@@ -188,7 +192,7 @@ function removeGroupWithAnimation(group) {
         const cells = document.querySelectorAll('.cell');
         group.forEach(key => {
             const [row, col] = key.split(',').map(Number);
-            const index = row * BOARD_SIZE + col;
+            const index = row * BOARD_SIZE_X + col;
             cells[index].classList.add('removing');
         });
 
@@ -227,9 +231,9 @@ function playPopSound() {
 }
 
 function dropTiles() {
-    for (let col = 0; col < BOARD_SIZE; col++) {
-        let writeRow = BOARD_SIZE - 1;
-        for (let row = BOARD_SIZE - 1; row >= 0; row--) {
+    for (let col = 0; col < BOARD_SIZE_X; col++) {
+        let writeRow = BOARD_SIZE_Y - 1;
+        for (let row = BOARD_SIZE_Y - 1; row >= 0; row--) {
             if (board[row][col] !== null) {
                 board[writeRow][col] = board[row][col];
                 writeRow--;
@@ -244,10 +248,10 @@ function dropTiles() {
 
 function shiftColumns() {
     let writeCol = 0;
-    for (let col = 0; col < BOARD_SIZE; col++) {
-        if (board[BOARD_SIZE - 1][col] !== null) {
+    for (let col = 0; col < BOARD_SIZE_X; col++) {
+        if (board[BOARD_SIZE_Y - 1][col] !== null) {
             if (writeCol !== col) {
-                for (let row = 0; row < BOARD_SIZE; row++) {
+                for (let row = 0; row < BOARD_SIZE_Y; row++) {
                     board[row][writeCol] = board[row][col];
                     board[row][col] = null;
                 }
@@ -258,8 +262,8 @@ function shiftColumns() {
 }
 
 function isGameOver() {
-    for (let i = 0; i < BOARD_SIZE; i++) {
-        for (let j = 0; j < BOARD_SIZE; j++) {
+    for (let i = 0; i < BOARD_SIZE_Y; i++) {
+        for (let j = 0; j < BOARD_SIZE_X; j++) {
             if (board[i][j] && findGroup(i, j, board[i][j]).length > 1) {
                 return false;
             }
@@ -292,7 +296,16 @@ function startOver(nextFlag) {
 }
 
 function changeBoardSize() {
-    BOARD_SIZE = parseInt(document.getElementById('size-select').value);
+    sizeSelect = document.getElementById('size-select');
+    bordSelect = sizeSelect.selectedIndex;
+    [boardX, boardY, boardName] = sizeSelect[bordSelect].value.split(',');
+    BOARD_SIZE_X = parseInt(boardX);
+    BOARD_SIZE_Y = parseInt(boardY);
+    
+    //背景変更
+    var gameBoard = document.getElementById('game-board');
+    gameBoard.style.backgroundImage = 'url(./image/youri_back_' + boardName + '.png)';
+    
     startOver(false);
 }
 

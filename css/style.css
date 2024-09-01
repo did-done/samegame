@@ -5,7 +5,7 @@
 
 html {
     touch-action: manipulation;
-    background-image: url("../image/bg_image.jpg");
+    background-image: url("../image/bg_image.png");
     font-family: MyFont;
 }
 #game-header {
@@ -80,7 +80,7 @@ html {
     display: grid;
     gap: 2px;
     margin-bottom: 20px;
-    background-image: url("../image/youri_back.png");
+    background-image: url(../image/youri_back_sakura.png);
     background-size: contain;
 }
 #count {
@@ -127,6 +127,7 @@ html {
     width: 100%;
     height: auto;
     max-width: 40px;
+    max-height: 40px;
     <!--border: 1px solid #000;-->
     display: flex;
     justify-content: center;
