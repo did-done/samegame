@@ -164,7 +164,7 @@ async function handleClick(row, col) {
             document.getElementById('countSelect').textContent = '天才！'; 
             document.getElementById('nowScore').textContent = '君は天才！';
         }
-        else if(scoreInt >= 100 && totalCountInt <= 20){
+        else if(scoreInt =< 100 && totalCountInt <= 20){
             changeYouri("youri_magao_ase");
             document.getElementById('countSelect').textContent = 'いっぱい繋げると'; 
             document.getElementById('nowScore').textContent = '点数が高くなるんだよ';
