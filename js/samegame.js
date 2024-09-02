@@ -164,7 +164,7 @@ async function handleClick(row, col) {
             document.getElementById('countSelect').textContent = '天才！'; 
             document.getElementById('nowScore').textContent = '君は天才！';
         }
-        else if(scoreInt =< 100 && totalCountInt <= 20){
+        else if(scoreInt <= 100 && totalCountInt <= 20){
             changeYouri("youri_magao_ase");
             document.getElementById('countSelect').textContent = 'いっぱい繋げると'; 
             document.getElementById('nowScore').textContent = '点数が高くなるんだよ';
@@ -372,8 +372,8 @@ function clickYouri(){
     
     if(youriValue == 1){
         changeYouri("youri_naki_bikkuri");
-        document.getElementById('countSelect').textContent = '＞＜　　　！';
-        document.getElementById('nowScore').textContent = '何するのー！';
+        document.getElementById('countSelect').textContent = '何するのー！';
+        document.getElementById('nowScore').textContent = ' ';
     }
     else if(youriValue == 2){
         changeYouri("youri_naki_guru");
@@ -387,7 +387,7 @@ function clickYouri(){
     }
     else if(youriValue >= 4 && youriValue <= 6){
         changeYouri("youri_magao_ten");
-        document.getElementById('countSelect').textContent = '・・・・・';
+        document.getElementById('countSelect').textContent = '……';
         document.getElementById('nowScore').textContent = ' ';
     }
     else if(youriValue >= 7){
