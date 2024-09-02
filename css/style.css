@@ -146,12 +146,6 @@ html {
 .information {
     margin: 0px;
 }
-#size-select {
-    padding: 5px 5px;
-    font-size: 16px;
-    cursor: pointer;
-    margin: 10px;
-}
 #controls {
     display: flex;
     justify-content: center;
@@ -224,5 +218,51 @@ html {
 
 .right{
     text-align: right;
+}
+
+#stage {
+    
+    font-size: 25px;
+    
+}
+
+#size-select {
+    padding: 5px 5px;
+    font-size: 16px;
+    margin: 10px 40px 0 0;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  color: #984AA0;;
+}
+.radio-inline__input {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
+}
+
+.radio-inline__label {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin-right: 18px;
+    border-radius: 3px;
+    transition: all .2s;
+    cursor: pointer;
+}
+
+.radio-inline__input:checked + .radio-inline__label {
+    background: #B54A4A;
+    color: #fff;
+    text-shadow: 0 0 1px rgba(0,0,0,.7);
+}
+
+.radio-inline__input:focus + .radio-inline__label {
+    outline-color: #4D90FE;
+    outline-offset: -2px;
+    outline-style: auto;
+    outline-width: 5px;
 }
 

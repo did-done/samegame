@@ -82,9 +82,18 @@
             </div>
         </div>
         <div style="display: flex; align-items: baseline;">
-            <div id="controls">
-                <select id="size-select">
-                    <!--<option value="6">S (6x6)</option>-->
+            <fieldset id="size-select">
+                <input id="item-1" class="radio-inline__input" type="radio" name="stage-select" checked="checked" value="12,12,sakura"/>
+                <label class="radio-inline__label" for="item-1">
+                    さくら (12x12)
+                </label>
+                <input id="item-2" class="radio-inline__input" type="radio" name="stage-select" value="18,13,ume"/>
+                <label class="radio-inline__label" for="item-2">
+                    うめ (18x13)
+                </label>
+            </fieldset>
+            <div id="controls" style="display: none;">
+                <select>
                     <option value="12,12,sakura">さくら (12x12)</option>
                     <option value="18,13,ume">うめ (18x13)</option>
                 </select>
@@ -109,6 +118,11 @@
             </div>
         </div>
     </div>
+    <!-- 隠し領域 -->
+    <div hidden>
+        <!-- コンボ用 -->
+        <div id="prev-cell" value="0"/>
+    <,div>
     <script src="js/samegame.js"></script>
 </body>
 </html>

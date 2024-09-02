@@ -1,7 +1,6 @@
 //ボードの初期値取得
-var sizeSelect = document.getElementById('size-select');
-var bordSelect = sizeSelect.selectedIndex;
-var [bordX, bordY] = sizeSelect[bordSelect].value.split(',').map(Number);
+var sizeSelect = document.querySelector('input[name=stage-select]:checked');
+var [bordX, bordY] = sizeSelect.value.split(',').map(Number);
 
 //let BOARD_SIZE = sizeSelect[bordSelect].value;
 //デバッグ用
@@ -142,6 +141,10 @@ async function handleClick(row, col) {
         score += nowScore;
         document.getElementById('score').textContent = score;
         var scoreInt = parseInt(score);
+        //前回消した個数を取得
+        var prevCell = document.getElementById('prev-cell').getAttribute('value');
+        var prevCellInt = parseInt(prevCell);
+        
         //トータル個数取得
         var totalCount = document.getElementById('total-count-view').innerHTML;
         var totalCountInt = parseInt(totalCount);
@@ -150,6 +153,11 @@ async function handleClick(row, col) {
             changeYouri("youri_egao_heart");
             document.getElementById('countSelect').textContent = 'いっぱい消せて'; 
             document.getElementById('nowScore').textContent = 'すごーい！';
+        }
+        else if(group.length >= 10 && prevCellInt >=10){
+            changeYouri("youri_magao_onpu");
+            document.getElementById('countSelect').textContent = 'その調子♪'; 
+            document.getElementById('nowScore').textContent = 'その調子♪';
         }
         else if(scoreInt >= 3000 && totalCountInt <= 20){
             changeYouri("youri_egao_heart");
@@ -166,6 +174,10 @@ async function handleClick(row, col) {
             document.getElementById('countSelect').textContent = 'がんばれ！';
             document.getElementById('nowScore').textContent = 'がんばれ！';
         }
+        
+        //今回消した個数を格納
+        document.getElementById('prev-cell').setAttribute('value', group.length);
+        
         renderBoard();
         if (isGameOver()) {
             openResult(score);
@@ -291,16 +303,19 @@ function startOver(nextFlag) {
     document.getElementById('nowScore').textContent = 'がんばれ！';
     
     document.getElementById('score').textContent = score;
+    
+    //前回消した個数をリセット
+    document.getElementById('prev-cell').setAttribute('value', "0");
+    
     initializeBoard();
     renderBoard();
 }
 
 function changeBoardSize() {
-    sizeSelect = document.getElementById('size-select');
-    bordSelect = sizeSelect.selectedIndex;
-    [boardX, boardY, boardName] = sizeSelect[bordSelect].value.split(',');
-    BOARD_SIZE_X = parseInt(boardX);
-    BOARD_SIZE_Y = parseInt(boardY);
+    sizeSelect = document.querySelector('input[name=stage-select]:checked');
+    [bordX, bordY, boardName] = sizeSelect.value.split(',');
+    BOARD_SIZE_X = parseInt(bordX);
+    BOARD_SIZE_Y = parseInt(bordY);
     
     //背景変更
     var gameBoard = document.getElementById('game-board');
@@ -314,43 +329,7 @@ function pointCalc(count) {
     return (count - 1) * (count - 1 );
     
 }
-/*
-function stageCreate(){
-    
-    var stage = document.getElementById('youriStage');
-    
-    // canvas要素をつくる
-    canvas        = document.createElement('canvas');
-    canvas.id     = 'canvas';
-    canvas.width  = 20;
-    canvas.height = 20;
-    document.getElementById('youriStage').appendChild(canvas);
-    
-    if (canvas.getContext && canvas.getContext('2d').createImageData) {
-        // Canvasのコンテキスト取得
-        var context = canvas.getContext('2d');
-        context.drawImage(stage, 0, 0, 20, 20);
-        
-        
-        // 画像読み込み
-        const chara = new Image();
-        chara.src = './image/youri_stage.png';  // 画像のURLを指定
-        chara.onload = () => {
-          context.drawImage(chara, 0, 0);
-        };
-        
-        
-        var image = context.getImageData(0, 0, 20, 20);
-        
-        for(i = 0;i < context.width;i++){
-            for(j = 0;j < context.height;j++){
-                startOver(true);
-            }
-        }
-        
-    }
-}
-*/
+
 const result = document.getElementById('result');
 const resultBg = document.getElementById('result-bg');
 function openResult(score){
