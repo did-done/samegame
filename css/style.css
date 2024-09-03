@@ -1,235 +1,255 @@
 @font-face {
-	font-family: 'MyFont';
-	src: url("../font/BestTen-CRT.otf");
+  font-family: 'MyFont';
+  src: url("../font/BestTen-CRT.otf");
 }
 
 html {
-    touch-action: manipulation;
-    background-image: url("../image/bg_image.png");
-    font-family: MyFont;
-}
-#game-header {
-    display: flex;
-}
-#game-header div {
-    margin-left: 5px;
-    margin-right: 5px;
-}
-#youri {
-    max-width: 60px;
-}
-#restart {
-    max-width: 90px;
-    cursor: pointer;
-}
-#fukidashi{
-    max-width:250px;
-    height: auto;
-    position: relative;
-}
-#fukidashi img{
-    width: 100%;
-    height: 100%;
-}
-#fukidashi p{
-    position: absolute;
-    font-size: clamp(1px, 3vw, 18px);
-    padding: 0;
-    margin: 0;
-    transform: translate(-50%,-50%);
-}
-#countSelect_p{
-    top: 30%;
-    left: 50%;
-}
-#nowScore_p{
-    top: 50%;
-    left: 50%;
-}
-#total-score-area{
-    flex-direction:column;
-    color: #984AA0;
-    display: grid;
-    font-size: 18px;
-}
-#total-score {
-    text-align: left;
-    margin: 15px 0 0 0 !important;
-}
-#total-score p {
-    margin: 0;
-}
-#score-div {
-    text-align: right;
-    font-size: 23px;
-    margin: 0 0 5px 0 !important;
-}
-#score {
-    text-align: right;
-    maegin: 0;
-    width: 50px;
-    color: #DA70D6;
-    font-size: 25;
-}
-#game-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-#game-board {
-    display: grid;
-    gap: 2px;
-    margin-bottom: 20px;
-    background-image: url(../image/youri_back_sakura.png);
-    background-size: contain;
-}
-#count {
-    display: flex;
-    width: 100%;
-    height: auto;
-    justify-content: center;
+  touch-action: manipulation;
+  background-image: url("../image/bg_image.png");
+  font-family: MyFont;
 }
 
-#count div{
-    display: flex;
-    margin-left: 5px;
-    width: 100%;
-    max-width: 80px;
+#game-header {
+  display: flex;
+}
+
+#game-header div {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#youri {
+  max-width: 60px;
+}
+
+#restart {
+  max-width: 90px;
+  cursor: pointer;
+}
+
+#fukidashi {
+  max-width: 250px;
+  height: auto;
+  position: relative;
+}
+
+#fukidashi img {
+  width: 100%;
+  height: 100%;
+}
+
+#fukidashi p {
+  position: absolute;
+  font-size: clamp(1px, 3vw, 18px);
+  padding: 0;
+  margin: 0;
+  transform: translate(-50%, -50%);
+}
+
+#countSelect_p {
+  top: 30%;
+  left: 50%;
+}
+
+#nowScore_p {
+  top: 50%;
+  left: 50%;
+}
+
+#total-score-area {
+  flex-direction: column;
+  color: #984AA0;
+  display: grid;
+  font-size: 18px;
+}
+
+#total-score {
+  text-align: left;
+  margin: 15px 0 0 0 !important;
+}
+
+#total-score p {
+  margin: 0;
+}
+
+#score-div {
+  text-align: right;
+  font-size: 23px;
+  margin: 0 0 5px 0 !important;
+}
+
+#score {
+  text-align: right;
+  maegin: 0;
+  width: 50px;
+  color: #DA70D6;
+  font-size: 25;
+}
+
+#game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#game-board {
+  display: grid;
+  gap: 2px;
+  margin-bottom: 20px;
+  background-image: url(../image/youri_back_sakura.png);
+  background-size: contain;
+}
+
+#count {
+  display: flex;
+  width: 100%;
+  height: auto;
+  justify-content: center;
+}
+
+#count div {
+  display: flex;
+  margin-left: 5px;
+  width: 100%;
+  max-width: 80px;
 }
 
 #count img {
-    max-width: 40px;
-    min-width: 0;
-    width: 100%;
+  max-width: 40px;
+  min-width: 0;
+  width: 100%;
 }
 
 #total-count {
-    align-items: end;
-    width: 100%;
+  align-items: end;
+  width: 100%;
 }
 
 .count-view {
-    align-items: end;
-    margin-left: 0 !important;
-    width: 100%;
+  align-items: end;
+  margin-left: 0 !important;
+  width: 100%;
 }
 
 .count-view p {
-    margin: 0;
-    width: 100%;
+  margin: 0;
+  width: 100%;
 }
 
-.unit{
-    font-size: 11px;
+.unit {
+  font-size: 11px;
 }
 
 .cell {
-    width: 100%;
-    height: auto;
-    max-width: 40px;
-    max-height: 40px;
-    <!--border: 1px solid #000;-->
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  width: 100%;
+  height: auto;
+  max-width: 40px;
+  max-height: 40px;
+  /* border: 1px solid #000; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
+
 .cell.removing {
-    transform: scale(0);
-    opacity: 0;
+  transform: scale(0);
+  opacity: 0;
 }
+
 .cell.select {
-    background-color:red;
+  background-color: red;
 }
+
 .information {
-    margin: 0px;
+  margin: 0px;
 }
+
 #controls {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
+
 #result {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    /*place-items: center;*/
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    display: none;
-}
-#result-bg{
-    background-color: rgb(0, 0, 0, 0.6);
-    opacity: 0.4;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: none;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  /* place-items: center; */
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  display: none;
 }
 
-.result-content{
-    background-color: #f4f4f4;
-    margin: 15% auto;
-    width: 60%;
-    max-width: 500px;
-    z-index: 100;
-    box-shadow: 0 2px 7px black;
-    animation-name: popup;
-    animation-duration: 1.1s;
-    
-}
-@keyframes popup{
-    from{
-        transform: translateY(150%);
-        opacity 0;
-    }
-    to{
-        opacity 1;
-    }
+#result-bg {
+  background-color: rgb(0, 0, 0, 0.6);
+  opacity: 0.4;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
 }
 
-.result-header{
-    margin: 0;
-    padding: 3px 15px;
-    background-color: pink;
-    display: flex;
-    justify-content: space-between;
-    
-    
+.result-content {
+  background-color: #f4f4f4;
+  margin: 15% auto;
+  width: 60%;
+  max-width: 500px;
+  z-index: 100;
+  box-shadow: 0 2px 7px black;
+  animation-name: popup;
+  animation-duration: 1.1s;
 }
 
-.result-header h1{
-    font-size: 1.3rem;
-    margin: 10px 0;
+@keyframes popup {
+  from {
+    transform: translateY(150%);
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-#result-close{
-    font-size: 1.3rem;
-    cursor: pointer;
-}
-.result-body{
-    padding: 15px 25px;
+.result-header {
+  margin: 0;
+  padding: 3px 15px;
+  background-color: pink;
+  display: flex;
+  justify-content: space-between;
 }
 
-.right{
-    text-align: right;
+.result-header h1 {
+  font-size: 1.3rem;
+  margin: 10px 0;
+}
+
+#result-close {
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.result-body {
+  padding: 15px 25px;
+}
+
+.right {
+  text-align: right;
 }
 
 #stage {
-    
-    font-size: 25px;
-    
+  font-size: 25px;
 }
 
 #size-select {
-    padding: 5px 5px;
-    font-size: 16px;
-    margin: 10px 40px 0 0;
+  padding: 5px 5px;
+  font-size: 16px;
+  margin: 10px 40px 0 0;
 }
 
 fieldset {
@@ -237,32 +257,32 @@ fieldset {
   padding: 0;
   margin: 0;
   text-align: center;
-  color: #984AA0;;
+  color: #984AA0;
 }
+
 .radio-inline__input {
-    clip: rect(1px, 1px, 1px, 1px);
-    position: absolute !important;
+  clip: rect(1px, 1px, 1px, 1px);
+  position: absolute !important;
 }
 
 .radio-inline__label {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    margin-right: 18px;
-    border-radius: 3px;
-    transition: all .2s;
-    cursor: pointer;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin-right: 18px;
+  border-radius: 3px;
+  transition: all .2s;
+  cursor: pointer;
 }
 
 .radio-inline__input:checked + .radio-inline__label {
-    background: #B54A4A;
-    color: #fff;
-    text-shadow: 0 0 1px rgba(0,0,0,.7);
+  background: #B54A4A;
+  color: #fff;
+  text-shadow: 0 0 1px rgba(0, 0, 0, .7);
 }
 
 .radio-inline__input:focus + .radio-inline__label {
-    outline-color: #4D90FE;
-    outline-offset: -2px;
-    outline-style: auto;
-    outline-width: 5px;
+  outline-color: #4D90FE;
+  outline-offset: -2px;
+  outline-style: auto;
+  outline-width: 5px;
 }
-

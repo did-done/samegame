@@ -1,128 +1,136 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
-    <title>ゆーりのさめがめセイム</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css" type="text/css">
+  <title>ゆーりのさめがめセイム</title>
 </head>
 <body>
-    <div id="game-container">
-        <h1>ゆーりのさめがめセイム</h1>
-        
-        <div id="game-header">
-            <!-- はじめからボタン -->
-            <div style="flex-direction: column;">
-                <div style="text-align: center;">
-                    <img id="youri" src="./image/youri/youri_magao.png" value="0"/>
-                </div>
-                <div>
-                    <img id="restart" src="./image/restart.png"/>
-                </div>
-                
-                <button id="start-over" style="display: none">はじめから</button>
-            </div>
-            
-            <!-- 吹き出し -->
-            <div id="fukidashi">
-                <img src="./image/fukidashi.png"/>
-                <p class="information" id="countSelect_p"><span id="countSelect" style="display: inline-block;width: 300px; text-align: center;">がんばれ！</span></p> 
-                <p class="information" id="nowScore_p"> <span id="nowScore" style="display: inline-block;width: 300px; text-align: center;">がんばれ！</span></p>
-            </div>
-            
-            <!-- Total Score -->
-            <div id="total-score-area">
-                <div id="total-score"><p>total score</p></div>
-                <div id="score-div"><p class="information"><span id="score">0</span>&thinsp;点</p></div>
-            </div>
+  <div id="game-container">
+    <h1>ゆーりのさめがめセイム</h1>
+    
+    <div id="game-header">
+      <!-- はじめからボタン -->
+      <div style="flex-direction: column;">
+        <div style="text-align: center;">
+          <img id="youri" src="./image/youri/youri_magao.png" value="0"/>
         </div>
-        
-        <!-- ゲームメイン画面 -->
-        <div id="game-board">
+        <div>
+          <img id="restart" src="./image/restart.png"/>
         </div>
-        
-        <!-- 個数カウント -->
-        <div id="count">
-            <div id="blue-count">
-                <img src="./image/puzzle/youri.png"/>
-                <div class="count-view">
-                    <p class="right" id="youri-count-view">99</p><p class="unit">人</p>
-                </div>
-            </div>
-            <div id="yellow-count">
-                <img src="./image/puzzle/ribbon.png"/>
-                <div class="count-view">
-                    <p class="right" id="ribbon-count-view">99</p><p class="unit">コ</p>
-                </div>
-            </div>
-            <div id="red-count">
-                <img src="./image/puzzle/fox.png"/>
-                <div class="count-view">
-                    <p class="right" id="fox-count-view">99</p><p class="unit">体</p>
-                </div>
-            </div>
-            <div id="pink-count">
-                <img src="./image/puzzle/bird.png"/>
-                <div class="count-view">
-                    <p class="right" id="bird-count-view">99</p><p class="unit">羽</p>
-                </div>
-            </div>
-            <div id="green-count">
-                <img src="./image/puzzle/cat.png"/>
-                <div class="count-view">
-                    <p class="right" id="cat-count-view">99</p><p class="unit">匹</p>
-                </div>
-            </div>
-            <div id="total-count">
-                <p class="unit" style="margin: 0;">total</p>
-                <div class="count-view">
-                    <span>:</span>
-                    <p id="total-count-view">99</p>
-                </div>
-            </div>
-        </div>
-        <div style="display: flex; align-items: baseline;">
-            <fieldset id="size-select">
-                <input id="item-1" class="radio-inline__input" type="radio" name="stage-select" checked="checked" value="12,12,sakura"/>
-                <label class="radio-inline__label" for="item-1">
-                    さくら (12x12)
-                </label>
-                <input id="item-2" class="radio-inline__input" type="radio" name="stage-select" value="18,13,ume"/>
-                <label class="radio-inline__label" for="item-2">
-                    うめ (18x13)
-                </label>
-            </fieldset>
-            <div id="controls" style="display: none;">
-                <select>
-                    <option value="12,12,sakura">さくら (12x12)</option>
-                    <option value="18,13,ume">うめ (18x13)</option>
-                </select>
-            </div>
-            <!-- ステージ -->
-            <div style="text-align: right;">
-                <p class="information">stage <span id="stage">1</span></p>
-            </div>
-        </div>
+        <button id="start-over" style="display: none">はじめから</button>
+      </div>
+      
+      <!-- 吹き出し -->
+      <div id="fukidashi">
+        <img src="./image/fukidashi.png"/>
+        <p class="information" id="countSelect_p">
+          <span id="countSelect" style="display: inline-block;width: 300px; text-align: center;">がんばれ！</span>
+        </p> 
+        <p class="information" id="nowScore_p">
+          <span id="nowScore" style="display: inline-block;width: 300px; text-align: center;">がんばれ！</span>
+        </p>
+      </div>
+      
+      <!-- Total Score -->
+      <div id="total-score-area">
+        <div id="total-score"><p>total score</p></div>
+        <div id="score-div"><p class="information"><span id="score">0</span>&thinsp;点</p></div>
+      </div>
     </div>
     
-    <!-- 結果ポップアップ -->
-    <div id="result-bg"></div>
-    <div id="result">
-        <div class="result-content">
-            <div class="result-header">
-                <h1>結果</h1>
-                <span id="result-close">&times;</span>
-            </div>
-            <div class="result-body">
-                <p id="resultPoint">スコアは777点だよ！</p>
-            </div>
-        </div>
+    <!-- ゲームメイン画面 -->
+    <div id="game-board">
     </div>
-    <!-- 隠し領域 -->
-    <div hidden>
-        <!-- コンボ用 -->
-        <div id="prev-cell" value="0"/>
-    <,div>
-    <script src="js/samegame.js"></script>
+    
+    <!-- 個数カウント -->
+    <div id="count">
+      <div id="blue-count">
+        <img src="./image/puzzle/youri.png"/>
+        <div class="count-view">
+          <p class="right" id="youri-count-view">99</p>
+          <p class="unit">人</p>
+        </div>
+      </div>
+      <div id="yellow-count">
+        <img src="./image/puzzle/ribbon.png"/>
+        <div class="count-view">
+          <p class="right" id="ribbon-count-view">99</p>
+          <p class="unit">コ</p>
+        </div>
+      </div>
+      <div id="red-count">
+        <img src="./image/puzzle/fox.png"/>
+        <div class="count-view">
+          <p class="right" id="fox-count-view">99</p>
+          <p class="unit">体</p>
+        </div>
+      </div>
+      <div id="pink-count">
+        <img src="./image/puzzle/bird.png"/>
+        <div class="count-view">
+          <p class="right" id="bird-count-view">99</p>
+          <p class="unit">羽</p>
+        </div>
+      </div>
+      <div id="green-count">
+        <img src="./image/puzzle/cat.png"/>
+        <div class="count-view">
+          <p class="right" id="cat-count-view">99</p>
+          <p class="unit">匹</p>
+        </div>
+      </div>
+      <div id="total-count">
+        <p class="unit" style="margin: 0;">total</p>
+        <div class="count-view">
+          <span>:</span>
+          <p id="total-count-view">99</p>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; align-items: baseline;">
+      <fieldset id="size-select">
+        <input id="item-1" class="radio-inline__input" type="radio" name="stage-select" checked="checked" value="12,12,sakura"/>
+        <label class="radio-inline__label" for="item-1">
+          さくら (12x12)
+        </label>
+        <input id="item-2" class="radio-inline__input" type="radio" name="stage-select" value="18,13,ume"/>
+        <label class="radio-inline__label" for="item-2">
+          うめ (18x13)
+        </label>
+      </fieldset>
+      <div id="controls" style="display: none;">
+        <select>
+          <option value="12,12,sakura">さくら (12x12)</option>
+          <option value="18,13,ume">うめ (18x13)</option>
+        </select>
+      </div>
+      <!-- ステージ -->
+      <div style="text-align: right;">
+        <p class="information">stage <span id="stage">1</span></p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 結果ポップアップ -->
+  <div id="result-bg"></div>
+  <div id="result">
+    <div class="result-content">
+      <div class="result-header">
+        <h1>結果</h1>
+        <span id="result-close">&times;</span>
+      </div>
+      <div class="result-body">
+        <p id="resultPoint">スコアは777点だよ！</p>
+      </div>
+    </div>
+  </div>
+  <!-- 隠し領域 -->
+  <div hidden>
+    <!-- コンボ用 -->
+    <div id="prev-cell" value="0"/>
+  </div>
+  <script src="js/samegame.js"></script>
 </body>
 </html>
