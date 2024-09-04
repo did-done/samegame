@@ -1,5 +1,11 @@
 @font-face {
   font-family: 'MyFont';
+  /*src: url("../font/BestTen-CRT.otf");*/
+  src: url("../font/x12y12pxMaruMinyaM.ttf");
+}
+
+@font-face {
+  font-family: 'FukidashiFont';
   src: url("../font/BestTen-CRT.otf");
 }
 
@@ -19,7 +25,7 @@ html {
 }
 
 #youri {
-  max-width: 60px;
+  max-width: 90px;
 }
 
 #restart {
@@ -31,6 +37,7 @@ html {
   max-width: 250px;
   height: auto;
   position: relative;
+  font-family: FukidashiFont;
 }
 
 #fukidashi img {
@@ -40,7 +47,7 @@ html {
 
 #fukidashi p {
   position: absolute;
-  font-size: clamp(1px, 3vw, 18px);
+  font-size: clamp(1px, 1.4vh, 18px);
   padding: 0;
   margin: 0;
   transform: translate(-50%, -50%);
@@ -82,7 +89,7 @@ html {
   text-align: right;
   maegin: 0;
   width: 50px;
-  color: #DA70D6;
+  color: #bd77b2;
   font-size: 25;
 }
 
@@ -160,7 +167,7 @@ html {
 }
 
 .cell.select {
-  background-color: red;
+  background-color: #eecbff;
 }
 
 .information {
@@ -272,10 +279,17 @@ fieldset {
   border-radius: 3px;
   transition: all .2s;
   cursor: pointer;
+  font-weight: bold;
 }
 
-.radio-inline__input:checked + .radio-inline__label {
-  background: #B54A4A;
+#item-1:checked + .radio-inline__label {
+  background: #c87b8f;
+  color: #fff;
+  text-shadow: 0 0 1px rgba(0, 0, 0, .7);
+}
+
+#item-2:checked + .radio-inline__label {
+  background: #b44a6c;
   color: #fff;
   text-shadow: 0 0 1px rgba(0, 0, 0, .7);
 }
