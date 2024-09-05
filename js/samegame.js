@@ -45,9 +45,13 @@ const YOURI_DELETE_COMBO =
 const YOURI_STAGE_TRANS = 
   [
     ["youri_magao", "もう一回　がんばろう！", ""],
-    ["youri_egao_heart", "がんばろうね！", ""],
+    ["youri_egao_heart", "次のステージに行くよ！", "ボーナスポイント　あげる♪"],
     ["youri_egao_heart2", "完走おめでとう！", "がんばったね♪"],
-    ["youri_magao", "大きさを変更したよ", ""]
+    ["youri_magao", "大きさを変更したよ", ""],
+    ["youri_naki_bikkuri", "次から　クリア条件が", "難しくなるよ　がんばって！"],
+    ["youri_magao", "まだまだだね", "高みで待ってるよ"],
+    ["yori_naki", "そんなときもあるよ", "どんまい！"],
+    ["youri_egao", "もうちょっとだよ！", "次がんばって！"]
   ];
 
 //スコア1万超え
@@ -57,8 +61,17 @@ const YOURI_SCORE_OVER =
   ];
 
 //クリック8～10回
-const YOURI_8_TO_10 = 
+const YOURI_1_TO_10 = 
   [
+    ["youri_naki_bikkuri", "何するのー！", ""],
+    ["youri_naki_guru", "ゆーりはリセット", "ボタンじゃないよ"],
+    ["youri_magao_ikari", "ゆーりにさわらないで", ""],
+    ["youri_magao_ten", "……", ""],
+    ["youri_magao_ten", "……", ""],
+    ["youri_magao_ten", "……", ""],
+    ["youri_magao_ikari", "シャー！！！", ""],
+    ["youri_magao_ten", "……", ""],
+    ["youri_magao_ten", "……", ""],
     ["youri_magao_ten", "……", ""]
   ];
 
@@ -84,10 +97,10 @@ const YOURI_3000_MORE =
 const YOURI_3000_MORE_5000_LESS = 
   [
     ["youri_magao", "なあに？ほめてほしいの？", ""],
-    ["youri_magao", "ゆーりともっとお話ししたいの？", "んー　もうちょっと頑張ったらね♪"],
-    ["youri_magao", "とても悲しいことがあった気がするんだ", "うまく　思い出せないんだけど……"],
-    ["youri_egao", "夜チャンネルに遊びに来てくれたら", "もっと　いっぱいお話しできるよ"],
-    ["youri_egao", "みんながたくさん応援してくれたら", "昔のこと　思い出せるかな？"]
+    ["youri_magao", "もっとお話ししたいの？んー", "もうちょっと頑張ったらね♪"],
+    ["youri_magao", "とても悲しいことがあったの", "うまく　思い出せないけど……"],
+    ["youri_egao", "夜チャンネルに遊びに来たら", "もっと　色々お話しできるよ"],
+    ["youri_egao", "みんなが沢山応援してくれたら", "昔のこと　思い出せるかな？"]
   ];
 
 //スコア5000以上
@@ -95,26 +108,26 @@ const YOURI_5000_MORE =
   [
     ["youri_magao", "お話ししたいの？", "いいよ　ちょっと休憩だね"],
     ["youri_magao", "ゆーりの好きな色は　むらさきだよ", ""],
-    ["youri_egao", "きゅうりとこんにゃくが好きなの", "プレゼントしてくれても　いいよ♪"],
-    ["youri_egao", "夜チャンネルに遊びに来てくれたら", "もっと　いっぱいお話しできるよ"],
-    ["youri_magao", "とても悲しいことがあった気がするんだ", "うまく　思い出せないんだけど……"],
-    ["youri_egao", "みんながたくさん応援してくれたら", "昔のこと　思い出せるかな？"],
-    ["youri_magao", "ゆーり　絵を描くのが好きなんだ", "みんなの絵も　たくさん見たいな"],
-    ["youri_egao_onpu", "ゆーり　お歌が得意なんだよ", "いつか聴いてくれたら　嬉しいな"],
+    ["youri_egao", "きゅうりとこんにゃくが好き", "プレゼント　大歓迎だよ♪"],
+    ["youri_egao", "夜チャンネルに遊びに来たら", "もっと　色々お話しできるよ"],
+    ["youri_magao", "とても悲しいことがあったの", "うまく　思い出せないけど……"],
+    ["youri_egao", "みんなが沢山応援してくれたら", "昔のこと　思い出せるかな？"],
+    ["youri_magao", "ゆーり　絵を描くのが好きなの", "みんなの絵も　沢山見たいな"],
+    ["youri_egao_onpu", "ゆーり　お歌が得意なんだよ", "聴いてくれたら　嬉しいな"],
     ["youri_magao", "ゆーりは500才だよ", "室町時代生まれなの"],
     ["youri_egao", "ゆーりの誕生日は", "1月27日だよ　祝ってくれる？"],
-    ["youri_egao", "きつねさんは　ツンデレなんだよ", "ああ見えて　すごく優しいんだ"],
+    ["youri_egao", "きつねさんは　ツンデレなの", "ああ見えて　すごく優しいんだ"],
     ["youri_magao", "ゆーりきつねつきなの", "もうずっと一緒にいるんだよ"],
-    ["youri_magao", "秋が一番好き", "食べ物も美味しいし 過ごしやすいもんね"],
-    ["youri_magao", "このネコちゃん？　うちの子だよ", "「アッ！」って鳴くんだ"],
-    ["youri_magao_ase", "鳥さん…とても大事だった気がするのに", "思い出せないんだ"],
-    ["youri_naki_ikari", "ゆーり　ボケてるわけじゃないよ", "記憶喪失なの！！"],
-    ["youri_egao_ase2", "昨日の夕飯？　うーん", "ゆーり　そういうの忘れちゃうんだよね"],
-    ["youri_magao", "小説もマンガもめちゃくちゃ読むよ", "家じゅう 本だらけで床が抜けそう！"],
+    ["youri_magao", "秋がいちばん好き！", "もみじってきれいだよね♪"],
+    ["youri_magao", "このこねこは　うちの子だよ", "「アッ！」って鳴くんだ"],
+    ["youri_magao_ase", "鳥さんのこと……", "すごく大事だった気がする"],
+    ["youri_naki_ikari", "ゆーりのはボケじゃない！", "記憶喪失なの！！！"],
+    ["youri_egao_ase2", "昨日の夕飯？　うーん　ゆーり", "そういうの忘れちゃうんだよね"],
+    ["youri_magao", "小説もマンガもめちゃ読むよ", "家じゅう本だらけ　床抜け寸前"],
     ["youri_magao", "ゆーり　朗読も得意なんだ", "時々　朗読配信もやってるよ"],
     ["youri_naki_heart", "好きなゲーム？", "ゼルダ！！！！！"],
     ["youri_egao_tere", "ゼルダのことなら", "原稿用紙100枚ぶん　語れるよ"],
-    ["youri_egao", "グッズショップ「柊木堂」で", "ゆーりのグッズがゲットできるよ"],
+    ["youri_egao", "グッズショップ「柊木堂」で", "ゆーりのグッズが手に入るよ"],
     ["youri_naki", "ゆーり暑いの　にがて", "寒いのも　にがて"]
   ];
 
@@ -155,11 +168,11 @@ const YOURI_LAST_UME_1500_MORE =
 //2000点以上
 const YOURI_LAST_UME_2000_MORE = 
   [
-    ["youri_egao", "ほんとに　すごいよ", "パズルの才能に　あふれてるね！"],
+    ["youri_egao", "ほんとに　すごいよ", "パズルの才能に　あふれてるね"],
     ["youri_magao_ase", "ゆーりよりうまい！", ""],
     ["youri_naki_onpu", "いけいけどんどん！", ""],
     ["youri_magao_ten", "ほんとにすごくて", "ごいりょく　失っちゃった"],
-    ["youri_naki_tere", "新記録　いけちゃうんじゃない！？", ""],
+    ["youri_naki_tere", "新記録", "いけちゃうんじゃない！？"],
     ["youri_magao_bikkuri", "ほんとに上手だね！", ""],
     ["youri_egao_heart", "いっぱい消せたね♪", ""],
     ["youri_egao_onpu", "いい感じだね♪", ""]
@@ -167,11 +180,11 @@ const YOURI_LAST_UME_2000_MORE =
 
 //次ステージ条件(残り数)
 //1～4
-const STAGE_1_TO_4 = 20;
+const STAGE_EARLY = 20;
 //5～7
-const STAGE_5_TO_7 = 10;
+const STAGE_MID = 10;
 //7～10
-const STAGE_8_TO_10 = 5;
+const STAGE_FIN = 5;
 
 
 function initializeBoard() {
@@ -555,21 +568,59 @@ function openResult(score) {
   const nowStage = document.getElementById('stage').innerHTML;
   var nowStageInt = parseInt(nowStage);
   
-  // ステージ1～4
-  if (nowStageInt >= 1 && nowStageInt <= 4 && totalCountInt <= STAGE_1_TO_4) {
-    startOver(true);
-    changeYouri(YOURI_STAGE_TRANS, 1);
+  // ステージ1～3
+  if (nowStageInt >= 1 && nowStageInt <= 2) {
+    if(totalCountInt <= STAGE_EARLY){
+      startOver(true);
+      changeYouri(YOURI_STAGE_TRANS, 1);
+    }
+    else{
+      changeYouri(YOURI_STAGE_TRANS, 5);
+    }
   }
-  else if(nowStageInt >= 5 && nowStageInt <= 7 && totalCountInt <= STAGE_5_TO_7){
-    startOver(true);
-    changeYouri(YOURI_STAGE_TRANS, 1);
+  else if (nowStageInt == 3) {
+    if(totalCountInt <= STAGE_EARLY){
+      startOver(true);
+      changeYouri(YOURI_STAGE_TRANS, 4);
+    }
+    else{
+      changeYouri(YOURI_STAGE_TRANS, 5);
+    }
   }
-  else if(nowStageInt >= 8 && nowStageInt < 10 && totalCountInt <= STAGE_8_TO_10){
-    startOver(true);
-    changeYouri(YOURI_STAGE_TRANS, 1);
+  else if(nowStageInt >= 4 && nowStageInt <= 5){
+    if(totalCountInt <= STAGE_MID){
+      startOver(true);
+      changeYouri(YOURI_STAGE_TRANS, 1);
+    }
+    else{
+      changeYouri(YOURI_STAGE_TRANS, 6);
+    }
   }
-  else if(nowStageInt == 10 && totalCountInt <= STAGE_8_TO_10){
-    changeYouri(YOURI_STAGE_TRANS, 2);
+  else if(nowStageInt == 6){
+    if(totalCountInt <= STAGE_MID){
+      startOver(true);
+      changeYouri(YOURI_STAGE_TRANS, 4);
+    }
+    else{
+       changeYouri(YOURI_STAGE_TRANS, 6);
+     }
+  }
+  else if(nowStageInt >= 7 && nowStageInt < 10){
+    if(totalCountInt <= STAGE_FIN){
+      startOver(true);
+      changeYouri(YOURI_STAGE_TRANS, 1);
+    }
+    else{
+      changeYouri(YOURI_STAGE_TRANS, 7);
+    }
+  }
+  else if(nowStageInt == 10){
+    if(totalCountInt <= STAGE_FIN){
+      changeYouri(YOURI_STAGE_TRANS, 2);
+    }
+    else{
+      changeYouri(YOURI_STAGE_TRANS, 7);
+    }
   }
 }
 
@@ -584,7 +635,6 @@ function changeYouri(mode, youriSelectValue) {
     // ランダム生成
     youriSelectValue = Math.floor(Math.random() * mode.length);
   }
-    
   
   var youri = document.getElementById('youri');
   youri.src = "./image/youri/"+ mode[youriSelectValue][0] +".png";
@@ -599,12 +649,9 @@ function clickYouri() {
   var youriValue = youri.getAttribute('value');
   youriValue = parseInt(youriValue) + 1;
   
-  if(youriValue >= 1 && youriValue <= 7){
-    //現状1～7回目はスルー
-    
-  }
-  else if(youriValue >= 8 && youriValue <= 10){
-    changeYouri(YOURI_8_TO_10);
+  if(youriValue >= 1 && youriValue <= 10){
+    //1～7回目
+    changeYouri(YOURI_1_TO_10, youriValue - 1);
   }
   else{
     // 3000点未満
