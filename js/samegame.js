@@ -15,6 +15,8 @@ let score = 0;
 let audioContext;
 var countColor = {};
 
+let prevBoard = [];
+
 //ゆーりちゃんセリフ
 //デフォルト
 const YOURI_DEFAULT = 
@@ -189,12 +191,16 @@ const STAGE_FIN = 5;
 
 function initializeBoard() {
   board = [];
+  prevBoard = [];
   for (let i = 0; i < BOARD_SIZE_Y; i++) {
     board[i] = [];
     for (let j = 0; j < BOARD_SIZE_X; j++) {
       board[i][j] = COLORS[Math.floor(Math.random() * COLORS.length)];
     }
   }
+  
+  prevBoard = boardCopy(board);
+  
 }
 
 function renderBoard() {
@@ -318,6 +324,11 @@ async function handleClick(row, col) {
   const group = findGroup(row, col, color);
   
   if (group.length > 1) {
+    // 1つ前のボードを格納
+    prevBoard = boardCopy(board);
+    // 1つ前のスコアを格納
+    document.getElementById('prev-score').setAttribute("value", score);
+    
     await removeGroupWithAnimation(group);
     dropTiles();
     shiftColumns();
@@ -386,6 +397,9 @@ async function handleClick(row, col) {
     else{
       changeYouri(YOURI_DEFAULT);
     }
+    
+    //前回消した個数を格納
+    document.getElementById('prev-prev-cell').setAttribute('value', prevCell);
     
     // 今回消した個数を格納
     document.getElementById('prev-cell').setAttribute('value', group.length);
@@ -509,7 +523,12 @@ function isGameOver() {
 }
 
 function startOver(nextFlag) {
-  score = 0;
+  // 初期化
+  prevBoard = [];
+  
+  // 前回消した個数をリセット
+  document.getElementById('prev-prev-cell').setAttribute('value', "0");
+  document.getElementById('prev-cell').setAttribute('value', "0");
   
   // 全消しなら次のステージへ
   if (nextFlag) {
@@ -517,14 +536,14 @@ function startOver(nextFlag) {
     score = parseInt(score) + 1000;
     stage = document.getElementById('stage').innerHTML;
     document.getElementById('stage').innerHTML = parseInt(stage) + 1;
+    document.getElementById('prev-score').setAttribute("value", score);
   } else {
+    score = 0;
+    document.getElementById('prev-score').setAttribute("value", "0");
     document.getElementById('stage').innerHTML = 1;
   }
   
   document.getElementById('score').textContent = score;
-  
-  // 前回消した個数をリセット
-  document.getElementById('prev-cell').setAttribute('value', "0");
   
   initializeBoard();
   renderBoard();
@@ -544,6 +563,7 @@ function changeBoardSize() {
   changeYouri(YOURI_STAGE_TRANS, 3);
   
   startOver(false);
+  playPopSound();
 }
 
 function pointCalc(count) {
@@ -686,7 +706,47 @@ function clickYouri() {
 function restart(){
   changeYouri(YOURI_STAGE_TRANS, 0);
   startOver(false);
+  playPopSound();
 }
+
+// 1手戻す
+function prevBoardCell(){
+  
+  board = boardCopy(prevBoard);
+  
+  renderBoard();
+  
+  // スコアを戻す
+  var prevScore = document.getElementById('prev-score').getAttribute("value");
+  document.getElementById('score').textContent = prevScore;
+  score = parseInt(prevScore);
+  
+  // コンボ用を戻す
+  var prevCell = document.getElementById('prev-prev-cell').getAttribute("value");
+  document.getElementById('prev-cell').setAttribute("value", prevCell);
+  
+  changeYouri(YOURI_DEFAULT);
+  
+  playPopSound();
+  
+}
+
+// ボード情報をコピー
+function boardCopy(boardCopied){
+  
+  var copied = []
+  
+  for (let i = 0; i < BOARD_SIZE_Y; i++) {
+    copied[i] = [];
+    for (let j = 0; j < BOARD_SIZE_X; j++) {
+      
+      copied[i][j] = boardCopied[i][j];
+      
+    }
+  }
+  return copied;
+}
+
 
 document.getElementById('result-close').addEventListener('click', () => {
   result.style.display = "none";
@@ -703,6 +763,8 @@ document.getElementById('result').addEventListener('click', (e) => {
 document.getElementById('restart').addEventListener('click', restart);
 document.getElementById('youri').addEventListener('click', clickYouri);
 document.getElementById('size-select').addEventListener('change', changeBoardSize);
+//一時的にタイトルに設定
+document.getElementById('title').addEventListener('click', prevBoardCell);
 
 initializeBoard();
 renderBoard();

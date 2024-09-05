@@ -8,7 +8,7 @@
 </head>
 <body>
   <div id="game-container">
-    <img src="./image/title.png" style="max-width: 200px;"/>
+    <img id="title" src="./image/title.png" style="max-width: 200px;"/>
     
     <div id="game-header">
       <!-- はじめからボタン -->
@@ -124,6 +124,9 @@
   <div hidden>
     <!-- コンボ用 -->
     <div id="prev-cell" value="0"/>
+    <!-- 1手戻す用 -->
+    <div id="prev-prev-cell" value="0"/>
+    <div id="prev-score" value="0"/>
   </div>
   <script src="js/samegame.js"></script>
 </body>
