@@ -79,6 +79,17 @@ html {
   margin: 0;
 }
 
+#prev-button-area{
+  display: flex;
+  align-items: center;
+  
+}
+
+#prev-button {
+  max-width: 50px;
+  cursor: pointer;
+}
+
 #score-div {
   text-align: right;
   font-size: 23px;

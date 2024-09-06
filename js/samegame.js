@@ -763,8 +763,7 @@ document.getElementById('result').addEventListener('click', (e) => {
 document.getElementById('restart').addEventListener('click', restart);
 document.getElementById('youri').addEventListener('click', clickYouri);
 document.getElementById('size-select').addEventListener('change', changeBoardSize);
-//一時的にタイトルに設定
-document.getElementById('title').addEventListener('click', prevBoardCell);
+document.getElementById('prev-button').addEventListener('click', prevBoardCell);
 
 initializeBoard();
 renderBoard();
