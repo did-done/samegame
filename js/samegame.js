@@ -17,11 +17,18 @@ var countColor = {};
 
 let prevBoard = [];
 
+//ポップアップメッセージ
+const POPUP_MESSAGE = 
+  [
+    ["おつゆーり！", "スコアはtotalScore点だよ！"],
+    ["次のステージに行くよ！", "ボーナスポイント　あげる♪"]
+  ];
+
 //ゆーりちゃんセリフ
 //デフォルト
 const YOURI_DEFAULT = 
   [
-    ["youri_magao", "がんばれ！", "がんばれ！"]
+    ["youri_magao", "がんばれ！", "がんばれ！"],
   ];
 
 //選択時
@@ -46,10 +53,10 @@ const YOURI_DELETE_COMBO =
 //ステージ切り替え
 const YOURI_STAGE_TRANS = 
   [
-    ["youri_magao", "もう一回　がんばろう！", ""],
-    ["youri_egao_heart", "次のステージに行くよ！", "ボーナスポイント　あげる♪"],
+    ["youri_magao", "もう一回　がんばろう！", "残り10個以下でクリアだよ！"],
+    ["youri_egao_heart", "次のステージに行くよ！", "残りrestColor個以下でクリアだよ！"],
     ["youri_egao_heart2", "完走おめでとう！", "がんばったね♪"],
-    ["youri_magao", "大きさを変更したよ", ""],
+    ["youri_magao", "大きさを変更したよ", "残り10個以下でクリアだよ！"],
     ["youri_naki_bikkuri", "次から　クリア条件が", "難しくなるよ　がんばって！"],
     ["youri_magao", "まだまだだね", "高みで待ってるよ"],
     ["youri_naki", "そんなときもあるよ", "どんまい！"],
@@ -187,9 +194,9 @@ const YOURI_PREV_MORE =
   ];
 
 //次ステージ条件(残り数)
-//1～4
+//1～3
 const STAGE_EARLY = 20;
-//5～7
+//4～6
 const STAGE_MID = 10;
 //7～10
 const STAGE_FIN = 5;
@@ -225,6 +232,7 @@ function renderBoard() {
       const cell = document.createElement('img');
       cell.className = 'cell'; // セルのクラス名を設定
       cell.setAttribute('value', `${i},${j}`); // セルの位置を属性として設定
+      cell.setAttribute('name', board[i][j]); // セルの位置を属性として設定
       
       if (board[i][j] !== null) {
         // 色が設定されているセルの場合
@@ -251,7 +259,77 @@ function renderBoard() {
   // 一度にフラグメントをDOMに追加
   gameBoard.innerHTML = ''; // 既存の内容をクリア
   gameBoard.appendChild(fragment); // フラグメントを追加
+  
+  countColorView();
+  
+}
 
+function fixBoard(){
+  
+  countColor = {}; // 色ごとのカウントをリセット
+  
+  const cells = document.getElementsByClassName('cell');
+  
+  var k = 0;
+  
+  for (let i = 0; i < BOARD_SIZE_Y; i++) {
+    for (let j = 0; j < BOARD_SIZE_X; j++) {
+      
+      cell = cells[k];
+      
+      if (board[i][j] !== null) {
+        // 色が設定されているセルの場合
+        
+        var cellName = cell.getAttribute("name");
+        
+        if(cellName != board[i][j]){
+          
+          cell.src = `./image/puzzle/${board[i][j]}.png`; // セルの画像ソースを設定
+          
+        }
+        
+        // クリックイベントを設定
+        cell.onclick = () => handleClickSelect(i, j);
+
+        // 色のカウントを更新
+        if (!countColor[board[i][j]]) {
+          countColor[board[i][j]] = 0;
+        }
+        countColor[board[i][j]]++;
+      } else {
+        // 空のセルの場合
+        cell.src = './image/dummy.png'; // ダミー画像を設定
+        cell.onclick = "";
+      }
+      
+      k++;
+      
+    }
+  }
+  
+  const removeCells = document.getElementsByClassName('removing');
+  var removeCount = removeCells.length;
+  
+  if (removeCount > 0) {
+    for (var i = 0; i < removeCount; i++) {
+      removeCells[0].classList.remove('removing');
+    }
+  }
+  
+  const selectedCells = document.getElementsByClassName('select');
+  var selectedCount = selectedCells.length;
+  
+  if (selectedCount > 0) {
+    for (var i = 0; i < selectedCount; i++) {
+      selectedCells[0].classList.remove('select');
+    }
+  }
+  
+  countColorView();
+}
+
+function countColorView(){
+  
   // 色ごとのカウントを表示
   let totalCount = 0;
   COLORS.forEach(color => {
@@ -260,10 +338,11 @@ function renderBoard() {
     nowColorView.innerHTML = colorCount; // 色ごとのカウントを表示
     totalCount += colorCount; // 合計カウントを更新
   });
-
+  
   // 合計カウントを表示
   const nowColorView = document.getElementById('total-count-view');
   nowColorView.innerHTML = totalCount; // 合計カウントを表示
+  
 }
 
 async function handleClickSelect(row, col) {
@@ -411,6 +490,8 @@ async function handleClick(row, col) {
     document.getElementById('prev-cell').setAttribute('value', group.length);
     
     renderBoard();
+    //fixBoard();
+    
     if (isGameOver()) {
       openResult(score);
     }
@@ -581,8 +662,7 @@ const resultBg = document.getElementById('result-bg');
 
 function openResult(score) {
   const resultPoint = document.getElementById('resultPoint');
-  
-  resultPoint.innerHTML = `スコアは${score}点だよ！`;
+  const resultPoint2 = document.getElementById('resultPoint2');
   
   result.style.display = "block";
   resultBg.style.display = "block";
@@ -594,58 +674,113 @@ function openResult(score) {
   const nowStage = document.getElementById('stage').innerHTML;
   var nowStageInt = parseInt(nowStage);
   
+  var scoreMessage = POPUP_MESSAGE[0][1].replace("totalScore", score);
+  
+  var restColorMessage;
+  
   // ステージ1～3
   if (nowStageInt >= 1 && nowStageInt <= 2) {
     if(totalCountInt <= STAGE_EARLY){
       startOver(true);
-      changeYouri(YOURI_STAGE_TRANS, 1);
+      
+      //残り個数設定
+      restColorMessage = YOURI_STAGE_TRANS[1][2].replace("restColor", STAGE_EARLY);
+      changeYouri([[YOURI_STAGE_TRANS[1][0], YOURI_STAGE_TRANS[1][1], restColorMessage]]);
+      
+      resultPoint.innerHTML = POPUP_MESSAGE[1][0];
+      resultPoint2.innerHTML = POPUP_MESSAGE[1][1];
     }
     else{
       changeYouri(YOURI_STAGE_TRANS, 5);
+      
+      resultPoint.innerHTML = POPUP_MESSAGE[0][0];
+      resultPoint2.innerHTML = scoreMessage;
     }
   }
   else if (nowStageInt == 3) {
     if(totalCountInt <= STAGE_EARLY){
       startOver(true);
-      changeYouri(YOURI_STAGE_TRANS, 4);
+      
+      //残り個数設定
+      restColorMessage = YOURI_STAGE_TRANS[1][2].replace("restColor", STAGE_MID);
+      changeYouri([[YOURI_STAGE_TRANS[1][0], YOURI_STAGE_TRANS[1][1], restColorMessage]]);
+      
+      resultPoint.innerHTML = POPUP_MESSAGE[1][0];
+      resultPoint2.innerHTML = POPUP_MESSAGE[1][1];
     }
     else{
       changeYouri(YOURI_STAGE_TRANS, 5);
+      
+      resultPoint.innerHTML = POPUP_MESSAGE[0][0];
+      resultPoint2.innerHTML = scoreMessage;
     }
   }
   else if(nowStageInt >= 4 && nowStageInt <= 5){
     if(totalCountInt <= STAGE_MID){
       startOver(true);
-      changeYouri(YOURI_STAGE_TRANS, 1);
+      
+      //残り個数設定
+      restColorMessage = YOURI_STAGE_TRANS[1][2].replace("restColor", STAGE_MID);
+      changeYouri([[YOURI_STAGE_TRANS[1][0], YOURI_STAGE_TRANS[1][1], restColorMessage]]);
+      
+      resultPoint.innerHTML = POPUP_MESSAGE[1][0];
+      resultPoint2.innerHTML = POPUP_MESSAGE[1][1];
     }
     else{
       changeYouri(YOURI_STAGE_TRANS, 6);
+      
+      resultPoint.innerHTML = POPUP_MESSAGE[0][0];
+      resultPoint2.innerHTML = scoreMessage;
     }
   }
   else if(nowStageInt == 6){
     if(totalCountInt <= STAGE_MID){
       startOver(true);
-      changeYouri(YOURI_STAGE_TRANS, 4);
+      
+      //残り個数設定
+      restColorMessage = YOURI_STAGE_TRANS[1][2].replace("restColor", STAGE_FIN);
+      changeYouri([[YOURI_STAGE_TRANS[1][0], YOURI_STAGE_TRANS[1][1], restColorMessage]]);
+      
+      resultPoint.innerHTML = POPUP_MESSAGE[1][0];
+      resultPoint2.innerHTML = POPUP_MESSAGE[1][1];
     }
     else{
        changeYouri(YOURI_STAGE_TRANS, 6);
+      
+      resultPoint.innerHTML = POPUP_MESSAGE[0][0];
+      resultPoint2.innerHTML = scoreMessage;
      }
   }
   else if(nowStageInt >= 7 && nowStageInt < 10){
     if(totalCountInt <= STAGE_FIN){
       startOver(true);
-      changeYouri(YOURI_STAGE_TRANS, 1);
+      
+      //残り個数設定
+      restColorMessage = YOURI_STAGE_TRANS[1][2].replace("restColor", STAGE_FIN);
+      changeYouri([[YOURI_STAGE_TRANS[1][0], YOURI_STAGE_TRANS[1][1], restColorMessage]]);
+      
+      resultPoint.innerHTML = POPUP_MESSAGE[1][0];
+      resultPoint2.innerHTML = POPUP_MESSAGE[1][1];
     }
     else{
       changeYouri(YOURI_STAGE_TRANS, 7);
+      
+      resultPoint.innerHTML = POPUP_MESSAGE[0][0];
+      resultPoint2.innerHTML = scoreMessage;
     }
   }
   else if(nowStageInt == 10){
     if(totalCountInt <= STAGE_FIN){
       changeYouri(YOURI_STAGE_TRANS, 2);
+      
+      resultPoint.innerHTML = POPUP_MESSAGE[0][0];
+      resultPoint2.innerHTML = scoreMessage;
     }
     else{
       changeYouri(YOURI_STAGE_TRANS, 7);
+      
+      resultPoint.innerHTML = POPUP_MESSAGE[0][0];
+      resultPoint2.innerHTML = scoreMessage;
     }
   }
 }
