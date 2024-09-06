@@ -52,7 +52,7 @@ const YOURI_STAGE_TRANS =
     ["youri_magao", "大きさを変更したよ", ""],
     ["youri_naki_bikkuri", "次から　クリア条件が", "難しくなるよ　がんばって！"],
     ["youri_magao", "まだまだだね", "高みで待ってるよ"],
-    ["yori_naki", "そんなときもあるよ", "どんまい！"],
+    ["youri_naki", "そんなときもあるよ", "どんまい！"],
     ["youri_egao", "もうちょっとだよ！", "次がんばって！"]
   ];
 
@@ -84,7 +84,7 @@ const YOURI_3000_LESS =
     ["youri_naki_ikari", "しつこーい！", ""],
     ["youri_magao_ikari", "これ以上触ったらポイント", "へらしちゃうからね！"],
     ["youri_magao", "きらいに　なっちゃうよ", ""],
-    ["youri_magao_guru", "",""],
+    ["youri_magao_guru", "……",""],
     ["youri_magao", "通報しました", ""],
     ["youri_magao_ikari", "……", ""]
   ];
@@ -178,6 +178,12 @@ const YOURI_LAST_UME_2000_MORE =
     ["youri_magao_bikkuri", "ほんとに上手だね！", ""],
     ["youri_egao_heart", "いっぱい消せたね♪", ""],
     ["youri_egao_onpu", "いい感じだね♪", ""]
+  ];
+
+//2回目以降戻し
+const YOURI_PREV_MORE = 
+  [
+    ["youri_magao", "何回も　やり直せるほど", "人生甘くないよ"]
   ];
 
 //次ステージ条件(残り数)
@@ -712,6 +718,13 @@ function restart(){
 // 1手戻す
 function prevBoardCell(){
   
+  if(isBoardSame()){
+    // 同じ盤面で戻そうとしてる
+    changeYouri(YOURI_PREV_MORE);
+    return;
+  }
+  
+  
   board = boardCopy(prevBoard);
   
   renderBoard();
@@ -745,6 +758,20 @@ function boardCopy(boardCopied){
     }
   }
   return copied;
+}
+
+// ボード情報が一致してるか
+function isBoardSame(){
+  
+  for (let i = 0; i < BOARD_SIZE_Y; i++) {
+    for (let j = 0; j < BOARD_SIZE_X; j++) {
+      if(board[i][j] != prevBoard[i][j]){
+        //不一致
+        return false
+      }
+    }
+  }
+  return true;
 }
 
 
