@@ -67,7 +67,7 @@ html {
   flex-direction: column;
   color: #984AA0;
   display: grid;
-  font-size: 18px;
+  /*font-size: 18px;*/
 }
 
 #total-score {
