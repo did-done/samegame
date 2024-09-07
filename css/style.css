@@ -98,7 +98,7 @@ html {
 
 #score {
   text-align: right;
-  maegin: 0;
+  margin: 0;
   width: 50px;
   color: #bd77b2;
   font-size: 25;
@@ -217,7 +217,7 @@ html {
   background-color: #f4f4f4;
   margin: 15% auto;
   width: 60%;
-  max-width: 500px;
+  max-width: 550px;
   z-index: 100;
   box-shadow: 0 2px 7px black;
   animation-name: popup;

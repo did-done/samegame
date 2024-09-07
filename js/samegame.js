@@ -201,20 +201,156 @@ const STAGE_MID = 10;
 //7～10
 const STAGE_FIN = 5;
 
+var count = 0;
+
 
 function initializeBoard() {
+
   board = [];
   prevBoard = [];
   for (let i = 0; i < BOARD_SIZE_Y; i++) {
     board[i] = [];
     for (let j = 0; j < BOARD_SIZE_X; j++) {
-      board[i][j] = COLORS[Math.floor(Math.random() * COLORS.length)];
+      //board[i][j] = COLORS[Math.floor(Math.random() * COLORS.length)];
+      //nullを入れる
+      board[i][j] = null;
+    }
+  }
+
+  var insertFin = true;
+  var unitType = ["verUnit", "baseUnit"];
+
+  //挿入完了までループ
+  while(true){
+    var insertType = unitType[Math.floor(Math.random() * unitType.length)];
+
+    if(insertType == "verUnit"){
+      // 縦2つを挿入
+      insertFin = verUnitInsert();
+    }
+    else if(insertType == "baseUnit"){
+      // 横2つを挿入
+      insertFin = baseUnitInsert();
+    }
+
+    if(!insertFin){
+      //入らないので配列から削除
+      unitType.splice(insertType, 1);
+      if(unitType.length == 0){
+        //もう入らない
+        break;
+      }
+    }
+  }
+  count++;
+  //console.log(count);
+
+  //全部埋まってなかったらやり直し
+  for (let i = 0; i < BOARD_SIZE_Y; i++) {
+    for (let j = 0; j < BOARD_SIZE_X; j++) {
+      if(board[i][j] == null){
+        
+        if(count < 1000){
+          //空白があるのでやり直し
+          initializeBoard();
+        }
+        else{
+          //諦めて埋める(無限ループ回避)
+          board[i][j] = COLORS[Math.floor(Math.random() * COLORS.length)];
+        }
+        //board[i][j] = COLORS[Math.floor(Math.random() * COLORS.length)];
+      }
+    }
+  }
+  count = 0;
+  prevBoard = boardCopy(board);
+}
+
+//縦2つを挿入
+function verUnitInsert() {
+  //横軸の場所をランダムに決定
+  var insertX = Math.floor(Math.random() * (BOARD_SIZE_X - 1));
+
+  //決定した場所に挿入可能か確認
+  //挿入不可なので可能な場所を探す
+  for(var i = insertX; i < BOARD_SIZE_X; i++){
+    if(board[0][i] == null && board[1][i] == null){
+      //上から2つが空いてたら挿入可能
+      //挿入コマの決定
+      var insertColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+      //挿入
+      board[0][i] = insertColor;
+      board[1][i] = insertColor;
+      
+      //挿入したら返却
+      dropTiles();
+      return true;
+    }
+  }
+
+  //最初からも探す
+  for(var i = 0; i < insertX; i++){
+    if(board[0][i] == null && board[1][i] == null){
+      //上から2つが空いてたら挿入可能
+      //挿入コマの決定
+      var insertColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+      //挿入
+      board[0][i] = insertColor;
+      board[1][i] = insertColor;
+      
+      //挿入したら返却
+      dropTiles();
+      return true;
     }
   }
   
-  prevBoard = boardCopy(board);
+  //挿入不可ならfalse
+  return false;
   
 }
+
+//横2つを挿入
+function baseUnitInsert(){
+  //横軸の場所をランダムに決定
+  var insertX = Math.floor(Math.random() * (BOARD_SIZE_X - 2));
+
+  //決定した場所に挿入可能か確認
+  //挿入不可なので可能な場所を探す
+  for(var i = insertX; i < BOARD_SIZE_X; i++){
+    if(board[0][i] == null && board[0][i+1] == null){
+      //上から横2つが空いてたら挿入可能
+      //挿入コマの決定
+      var insertColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+      //挿入
+      board[0][i] = insertColor;
+      board[0][i+1] = insertColor;
+      
+      //挿入したら返却
+      dropTiles();
+      return true;
+    }
+  }
+
+  //最初からも探す
+  for(var i = 0; i < insertX; i++){
+    if(board[0][i] == null && board[0][i+1] == null){
+      //上から横2つが空いてたら挿入可能
+      //挿入コマの決定
+      var insertColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+      //挿入
+      board[0][i] = insertColor;
+      board[0][i+1] = insertColor;
+      
+      //挿入したら返却
+      dropTiles();
+      return true;
+    }
+  }
+  
+  //挿入不可ならfalse
+  return false;
+}
+
 
 function renderBoard() {
   const gameBoard = document.getElementById('game-board');
