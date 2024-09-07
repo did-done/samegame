@@ -218,7 +218,7 @@ function initializeBoard() {
   }
 
   var insertFin = true;
-  var unitType = ["verUnit", "baseUnit"];
+  var unitType = ["baseUnit"];
 
   //挿入完了までループ
   while(true){
@@ -231,6 +231,10 @@ function initializeBoard() {
     else if(insertType == "baseUnit"){
       // 横2つを挿入
       insertFin = baseUnitInsert();
+    }
+    else if(insertType == "aloneUnit"){
+      // 横2つを挿入
+      insertFin = aloneUnitInsert();
     }
 
     if(!insertFin){
@@ -249,16 +253,7 @@ function initializeBoard() {
   for (let i = 0; i < BOARD_SIZE_Y; i++) {
     for (let j = 0; j < BOARD_SIZE_X; j++) {
       if(board[i][j] == null){
-        
-        if(count < 1000){
-          //空白があるのでやり直し
-          initializeBoard();
-        }
-        else{
-          //諦めて埋める(無限ループ回避)
-          board[i][j] = COLORS[Math.floor(Math.random() * COLORS.length)];
-        }
-        //board[i][j] = COLORS[Math.floor(Math.random() * COLORS.length)];
+        board[i][j] = COLORS[Math.floor(Math.random() * COLORS.length)];
       }
     }
   }
@@ -297,6 +292,47 @@ function verUnitInsert() {
       //挿入
       board[0][i] = insertColor;
       board[1][i] = insertColor;
+      
+      //挿入したら返却
+      dropTiles();
+      return true;
+    }
+  }
+  
+  //挿入不可ならfalse
+  return false;
+  
+}
+
+//1つを挿入
+function aloneUnitInsert() {
+  //横軸の場所をランダムに決定
+  var insertX = Math.floor(Math.random() * (BOARD_SIZE_X));
+
+  //決定した場所に挿入可能か確認
+  //挿入不可なので可能な場所を探す
+  for(var i = insertX; i < BOARD_SIZE_X; i++){
+    if(board[0][i] == null){
+      //1つが空いてたら挿入可能
+      //挿入コマの決定
+      var insertColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+      //挿入
+      board[0][i] = insertColor;
+      
+      //挿入したら返却
+      dropTiles();
+      return true;
+    }
+  }
+
+  //最初からも探す
+  for(var i = 0; i < insertX; i++){
+    if(board[0][i] == null){
+      //上から2つが空いてたら挿入可能
+      //挿入コマの決定
+      var insertColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+      //挿入
+      board[0][i] = insertColor;
       
       //挿入したら返却
       dropTiles();
