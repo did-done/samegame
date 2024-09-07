@@ -272,7 +272,8 @@ html {
 
 #stage-area {
   text-align: left;
-  margin-right: 0;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
   color: black;
   display: flex;
   align-items: baseline;
