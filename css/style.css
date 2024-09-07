@@ -274,6 +274,12 @@ html {
   text-align: left;
   margin-right: 0;
   color: black;
+  display: flex;
+  align-items: baseline;
+}
+
+#stage-div {
+  text-align: right;
 }
 
 #stage {
