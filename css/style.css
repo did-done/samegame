@@ -216,8 +216,8 @@ html {
 .result-content {
   background-color: #f4f4f4;
   margin: 15% auto;
-  width: 60%;
-  max-width: 550px;
+  width: 70%;
+  max-width: 500px;
   z-index: 100;
   box-shadow: 0 2px 7px black;
   animation-name: popup;
