@@ -36,6 +36,10 @@
       
       <!-- Total Score -->
       <div id="total-score-area">
+        <!-- ステージ -->
+        <div id="stage-area">
+          <b class="information">stage </b><span id="stage">1</span>
+        </div>
         <div id="total-score">
           <div>
             <b>total score</b>
@@ -96,18 +100,17 @@
     </div>
     <div style="display: flex; margin-top: 10px;">
       <fieldset id="size-select">
-        <input id="item-1" class="radio-inline__input" type="radio" name="stage-select" checked="checked" value="12,12,sakura"/>
+        <input id="item-1" class="radio-inline__input" type="radio" name="stage-select" value="12,12,sakura"/>
         <label class="radio-inline__label" for="item-1">
           さくら (12x12)
         </label>
-        <input id="item-2" class="radio-inline__input" type="radio" name="stage-select" value="18,13,ume"/>
+        <input id="item-2" class="radio-inline__input" type="radio" name="stage-select" checked="checked" value="18,13,ume"/>
         <label class="radio-inline__label" for="item-2">
           うめ (18x13)
         </label>
       </fieldset>
-      <!-- ステージ -->
-      <div style="text-align: right; margin-right: 30px">
-        <p class="information">stage <span id="stage">1</span></p>
+      <div id="delete-button-area">
+        <img id="delete-button" src="./image/pickel.png"/>
       </div>
       <div id="prev-button-area">
         <img id="prev-button" src="./image/prev.png"/>
@@ -136,6 +139,7 @@
     <!-- 1手戻す用 -->
     <div id="prev-prev-cell" value="0"/>
     <div id="prev-score" value="0"/>
+    <div id="delete-flag" value="0"/>
   </div>
   <script src="js/samegame.js"></script>
 </body>

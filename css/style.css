@@ -72,13 +72,23 @@ html {
 
 #total-score {
   text-align: left;
-  margin: 15px 0 0 0 !important;
+  margin: 0 0 0 0 !important;
   display: flex;
   align-items: center;
 }
 
 #total-score p {
   margin: 0;
+}
+
+#delete-button-area{
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+#delete-button {
+  max-width: 30px;
+  cursor: pointer;
 }
 
 #prev-button-area{
@@ -258,6 +268,12 @@ html {
 
 .right {
   text-align: right;
+}
+
+#stage-area {
+  text-align: left;
+  margin-right: 30px;
+  color: black;
 }
 
 #stage {
