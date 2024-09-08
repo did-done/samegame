@@ -674,6 +674,10 @@ async function handleClick(row, col) {
     // 今回消した個数を格納
     document.getElementById('prev-cell').setAttribute('value', group.length);
 
+    // 前回1マス削除フラグを0にする
+    var deleteAfterFlag = document.getElementById('delete-after-flag');
+    deleteAfterFlag.setAttribute("value", "0");
+
     renderBoard();
     //fixBoard();
 
@@ -1044,6 +1048,17 @@ function prevBoardCell() {
     return;
   }
 
+  // 1マス削除の戻しならボタン活性化
+  const deleteAfterFlag = document.getElementById('delete-after-flag');
+  const deleteAfterFlagValue = deleteAfterFlag.getAttribute("value");
+
+  if (deleteAfterFlagValue == "1") {
+    // 1マス削除を活性化
+    const deleteButton = document.getElementById('delete-button');
+    deleteButton.removeEventListener('click', deleteButtonNone);
+    deleteButton.addEventListener('click', aloneDeleteClick);
+    deleteButton.src = "./image/pickel.png";
+  }
 
   board = boardCopy(prevBoard);
 
@@ -1186,6 +1201,11 @@ function aloneDeleteSelect(row, col) {
 
 async function aloneDelete(row, col) {
 
+  // 1つ前のボードを格納
+  prevBoard = boardCopy(board);
+  // 1つ前のスコアを格納
+  document.getElementById('prev-score').setAttribute("value", score);
+
   const group = [];
 
   group.push(row + "," + col);
@@ -1195,6 +1215,8 @@ async function aloneDelete(row, col) {
 
   var deleteFlag = document.getElementById('delete-flag');
   deleteFlag.setAttribute("value", "0");
+  var deleteAfterFlag = document.getElementById('delete-after-flag');
+  deleteAfterFlag.setAttribute("value", "1");
 
   renderBoard();
 
