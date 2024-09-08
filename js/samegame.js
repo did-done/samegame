@@ -533,8 +533,8 @@ async function handleClickSelect(row, col) {
     // 選択範囲の背景を変更
     nowScore = pointCalc(group.length);
 
-    // 連結が2つ(1点)なら泣き顔
-    if (nowScore === 1) {
+    // 連結が2つ(0点)なら泣き顔
+    if (nowScore === 0) {
 
       connectMessage = YOURI_SELECT[1][1].replace("connect", group.length);
       scoreMessage = YOURI_SELECT[1][2].replace("score", nowScore);
