@@ -806,7 +806,7 @@ function startOver(nextFlag) {
   document.getElementById('prev-prev-cell').setAttribute('value', "0");
   document.getElementById('prev-cell').setAttribute('value', "0");
 
-  // 全消しなら次のステージへ
+  // 条件合致なら次のステージへ
   if (nextFlag) {
     score = document.getElementById('score').innerHTML;
     score = parseInt(score) + 1000;
@@ -817,6 +817,14 @@ function startOver(nextFlag) {
     score = 0;
     document.getElementById('prev-score').setAttribute("value", "0");
     document.getElementById('stage').innerHTML = 1;
+    // 1マス削除を活性化
+    const deleteButton = document.getElementById('delete-button');
+    deleteButton.removeEventListener('click', deleteButtonNone);
+    deleteButton.addEventListener('click', aloneDeleteClick);
+    deleteButton.src = "./image/pickel.png";
+    // 前回1マス削除フラグを0にする
+    var deleteAfterFlag = document.getElementById('delete-after-flag');
+    deleteAfterFlag.setAttribute("value", "0");
   }
 
   document.getElementById('score').textContent = score;
@@ -1048,6 +1056,16 @@ function prevBoardCell() {
     return;
   }
 
+  // スコアを戻す
+  var prevScore = document.getElementById('prev-score').getAttribute("value");
+  document.getElementById('score').textContent = prevScore;
+  score = parseInt(prevScore);
+
+  // コンボ用を戻す
+  var prevCell = document.getElementById('prev-cell').getAttribute("value");
+  var prevPrevCell = document.getElementById('prev-prev-cell').getAttribute("value");
+  document.getElementById('prev-cell').setAttribute("value", prevPrevCell);
+
   // 1マス削除の戻しならボタン活性化
   const deleteAfterFlag = document.getElementById('delete-after-flag');
   const deleteAfterFlagValue = deleteAfterFlag.getAttribute("value");
@@ -1060,18 +1078,17 @@ function prevBoardCell() {
     deleteButton.src = "./image/pickel.png";
   }
 
+  //前回30個消してたら非活性
+  if(parseInt(prevCell) >= 30){
+    var deleteButton = document.getElementById('delete-button');
+    deleteButton.src = "./image/pickel_black.png";
+    deleteButton.removeEventListener("click", aloneDeleteClick);
+    deleteButton.addEventListener("click", deleteButtonNone);
+  }
+
   board = boardCopy(prevBoard);
 
   renderBoard();
-
-  // スコアを戻す
-  var prevScore = document.getElementById('prev-score').getAttribute("value");
-  document.getElementById('score').textContent = prevScore;
-  score = parseInt(prevScore);
-
-  // コンボ用を戻す
-  var prevCell = document.getElementById('prev-prev-cell').getAttribute("value");
-  document.getElementById('prev-cell').setAttribute("value", prevCell);
 
   changeYouri(YOURI_DEFAULT);
 
@@ -1218,12 +1235,12 @@ async function aloneDelete(row, col) {
   var deleteAfterFlag = document.getElementById('delete-after-flag');
   deleteAfterFlag.setAttribute("value", "1");
 
-  renderBoard();
-
   var deleteButton = document.getElementById('delete-button');
   deleteButton.src = "./image/pickel_black.png";
   deleteButton.removeEventListener("click", aloneDeleteClick);
   deleteButton.addEventListener("click", deleteButtonNone);
+
+  renderBoard();
 
   changeYouri(YOURI_DEFAULT);
 }
