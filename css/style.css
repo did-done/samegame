@@ -67,7 +67,7 @@ html {
   flex-direction: column;
   color: #984AA0;
   display: grid;
-  /*font-size: 18px;*/
+  font-size: 18px;
 }
 
 #total-score {
@@ -124,7 +124,7 @@ html {
   display: grid;
   gap: 2px;
   margin-bottom: 20px;
-  background-image: url(../image/youri_back_sakura.png);
+  background-image: url(../image/youri_back_ume.png);
   background-size: contain;
 }
 
