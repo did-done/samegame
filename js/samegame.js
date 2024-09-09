@@ -240,6 +240,9 @@ const STAGE_MID = 10;
 //7～10
 const STAGE_FIN = 5;
 
+//ピッケル再使用
+const DELETE_ITEM_REUSE = 20;
+
 var count = 0;
 
 
@@ -646,7 +649,7 @@ async function handleClick(row, col) {
     // ゆーりちゃん表示用
     var youriValueView = 0;
 
-    if(group.length >= 20){
+    if(group.length >= DELETE_ITEM_REUSE){
       // 1マス削除を活性化
       const deleteButton = document.getElementById('delete-button');
       deleteButton.removeEventListener('click', deleteButtonNone);
@@ -1171,8 +1174,8 @@ function prevBoardCell() {
     deleteButton.src = "./image/pickel.png";
   }
 
-  //前回30個消してたら非活性
-  if(parseInt(prevCell) >= 30){
+  //前回20個消してたら非活性
+  if(parseInt(prevCell) >= DELETE_ITEM_REUSE){
     var deleteButton = document.getElementById('delete-button');
     deleteButton.src = "./image/pickel_black.png";
     deleteButton.removeEventListener("click", aloneDeleteClick);
