@@ -81,6 +81,24 @@ html {
   margin: 0;
 }
 
+#voice-button-area{
+  margin-left: 30px;
+}
+
+#voice-button {
+  max-width: 30px;
+  cursor: pointer;
+}
+
+#sound-button-area{
+  margin-left: 30px;
+}
+
+#sound-button {
+  max-width: 30px;
+  cursor: pointer;
+}
+
 #delete-button-area{
   margin-right: 30px;
   margin-left: 30px;
@@ -188,7 +206,7 @@ html {
 }
 
 .cell.select {
-  background-color: #eecbff;
+  background-color: #ff4e72;
 }
 
 .information {

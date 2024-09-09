@@ -8,7 +8,7 @@ let NOW_BOARD_NAME = boardName;
 
 const COLORS = ['youri', 'ribbon', 'fox', 'bird', 'cat'];
 // デバッグ用
-//const COLORS = ['youri'];
+//const COLORS = ['youri', "cat"];
 
 let board = [];
 let score = 0;
@@ -41,7 +41,7 @@ const YOURI_SELECT =
 //たくさん消したとき
 const YOURI_DELETE_MORE =
   [
-    ["youri_egao_heart", "いっぱい消せて", "すごーい！"]
+    ["youri_egao_heart", "いっぱい消せて", "すごーい！", "すごーい"]
   ];
 
 //コンボしたとき
@@ -54,41 +54,41 @@ const YOURI_DELETE_COMBO =
 const YOURI_STAGE_TRANS =
   [
     ["youri_magao", "もう一回　がんばろう！", "残り10個以下でクリアだよ！"],
-    ["youri_egao_heart", "次のステージに行くよ！", "残りrestColor個以下でクリアだよ！"],
-    ["youri_egao_heart2", "完走おめでとう！", "がんばったね♪"],
+    ["youri_egao_heart", "さあ　次もがんばろう", "残りrestColor個でクリアだよ！", "がんばろ１"],
+    ["youri_egao_heart2", "完走おめでとう！", "がんばったね♪", "おめでとー"],
     ["youri_magao", "大きさを変更したよ", "残り10個以下でクリアだよ！"],
     ["youri_naki_bikkuri", "次から　クリア条件が", "難しくなるよ　がんばって！"],
-    ["youri_magao", "まだまだだね", "高みで待ってるよ"],
-    ["youri_naki", "そんなときもあるよ", "どんまい！"],
-    ["youri_egao", "もうちょっとだよ！", "次がんばって！"]
+    ["youri_magao", "まだまだだね", "高みで待ってるよ", "まだまだ"],
+    ["youri_egao", "次はきっと", "もっといけるよ！", "おつ"],
+    ["youri_naki", "ここまで来れるなんてすごい！", "惜しかったね…！", "すごーい"]
   ];
 
 //スコア1万超え
 const YOURI_SCORE_OVER =
   [
-    ["youri_egao_heart2", "天才！", "君は天才！"]
+    ["youri_egao_heart2", "天才！", "君は天才！", "天才"]
   ];
 
 //クリック8～10回
 const YOURI_1_TO_10 =
   [
-    ["youri_naki_bikkuri", "何するのー！", ""],
+    ["youri_naki_bikkuri", "何するのー！", "", "うぅ…"],
     ["youri_naki_guru", "ゆーりはリセット", "ボタンじゃないよ"],
     ["youri_magao_ikari", "ゆーりにさわらないで", ""],
     ["youri_magao_ten", "……", ""],
     ["youri_magao_ten", "……", ""],
     ["youri_magao_ten", "……", ""],
-    ["youri_magao_ikari", "シャー！！！", ""],
+    ["youri_magao_ikari", "シャー！！！", "", "シャー"],
     ["youri_magao_ten", "……", ""],
     ["youri_magao_ten", "……", ""],
     ["youri_magao_ten", "……", ""]
   ];
 
-//スコア3000未満
+//スコア1500未満
 //クリック11回目以降
-const YOURI_3000_LESS =
+const YOURI_1500_LESS =
   [
-    ["youri_naki_ikari", "しつこーい！", ""],
+    ["youri_naki_ikari", "しつこいなあ", "", "しつこいなあ"],
     ["youri_magao_ikari", "これ以上触ったらポイント", "へらしちゃうからね！"],
     ["youri_magao", "きらいに　なっちゃうよ", ""],
     ["youri_magao_guru", "……", ""],
@@ -96,33 +96,33 @@ const YOURI_3000_LESS =
     ["youri_magao_ikari", "……", ""]
   ];
 
-//スコア3000以上11回目
-const YOURI_3000_MORE =
+//スコア1500以上11回目
+const YOURI_1500_MORE =
   [
-    ["youri_magao_ase", "ダメって言ってるのに", "しょうがないなあ"]
+    ["youri_magao_ase", "ダメって言ってるのに", "しょうがないなあ", "うぅ…"]
   ];
 
-//スコア3000以上5000未満
-const YOURI_3000_MORE_5000_LESS =
+//スコア1500以上3000未満
+const YOURI_1500_MORE_3000_LESS =
   [
-    ["youri_magao", "なあに？ほめてほしいの？", ""],
-    ["youri_magao", "もっとお話ししたいの？んー", "もうちょっと頑張ったらね♪"],
+    ["youri_magao", "なあに？ほめてほしいの？", "", "なあに"],
+    ["youri_magao", "もっとお話ししたいの？んー", "もうちょっと頑張ったらね♪", "笑う"],
     ["youri_magao", "とても悲しいことがあったの", "うまく　思い出せないけど……"],
-    ["youri_egao", "夜チャンネルに遊びに来たら", "もっと　色々お話しできるよ"],
+    ["youri_egao", "うちに　遊びに来てくれたら", "もっと　色々お話しできるよ", "えっへん"],
     ["youri_egao", "みんなが沢山応援してくれたら", "昔のこと　思い出せるかな？"]
   ];
 
-//スコア5000以上
-const YOURI_5000_MORE =
+//スコア3000以上
+const YOURI_3000_MORE =
   [
-    ["youri_magao", "お話ししたいの？", "いいよ　ちょっと休憩だね"],
+    ["youri_magao", "お話ししたいの？", "いいよ　ちょっと休憩だね", "笑う"],
     ["youri_magao", "ゆーりの好きな色は　むらさきだよ", ""],
     ["youri_egao", "きゅうりとこんにゃくが好き", "プレゼント　大歓迎だよ♪"],
-    ["youri_egao", "夜チャンネルに遊びに来たら", "もっと　色々お話しできるよ"],
+    ["youri_egao", "うちに　遊びに来てくれたら", "もっと　色々お話しできるよ", "えっへん"],
     ["youri_magao", "とても悲しいことがあったの", "うまく　思い出せないけど……"],
     ["youri_egao", "みんなが沢山応援してくれたら", "昔のこと　思い出せるかな？"],
     ["youri_magao", "ゆーり　絵を描くのが好きなの", "みんなの絵も　沢山見たいな"],
-    ["youri_egao_onpu", "ゆーり　お歌が得意なんだよ", "聴いてくれたら　嬉しいな"],
+    ["youri_egao_onpu", "ゆーり　お歌が得意なんだよ", "聴いてくれたら　嬉しいな", "笑う"],
     ["youri_magao", "ゆーりは500才だよ", "室町時代生まれなの"],
     ["youri_egao", "ゆーりの誕生日は", "1月27日だよ　祝ってくれる？"],
     ["youri_egao", "きつねさんは　ツンデレなの", "ああ見えて　すごく優しいんだ"],
@@ -133,12 +133,29 @@ const YOURI_5000_MORE =
     ["youri_naki_ikari", "ゆーりのはボケじゃない！", "記憶喪失なの！！！"],
     ["youri_egao_ase2", "昨日の夕飯？　うーん　ゆーり", "そういうの忘れちゃうんだよね"],
     ["youri_magao", "小説もマンガもめちゃ読むよ", "家じゅう本だらけ　床抜け寸前"],
-    ["youri_magao", "ゆーり　朗読も得意なんだ", "時々　朗読配信もやってるよ"],
-    ["youri_naki_heart", "好きなゲーム？", "ゼルダ！！！！！"],
-    ["youri_egao_tere", "ゼルダのことなら", "原稿用紙100枚ぶん　語れるよ"],
-    ["youri_egao", "グッズショップ「柊木堂」で", "ゆーりのグッズが手に入るよ"],
-    ["youri_naki", "ゆーり暑いの　にがて", "寒いのも　にがて"]
+    ["youri_magao", "ゆーり　朗読も得意なんだ", "時々　みんなに披露してるよ", "えっへん"],
+    ["youri_naki_heart", "好きなゲーム？", "ゼルダ！！！！！", "えっへん"],
+    ["youri_egao_tere", "ゼルダのことなら", "原稿用紙100枚ぶん　語れるよ", "えっへん"],
+    ["youri_egao", "グッズショップ「柊木堂」で", "ゆーりのグッズが手に入るよ", "えっへん"],
+    ["youri_naki", "ゆーり暑いの　にがて", "寒いのも　にがて", "うぅ…"]
   ];
+
+//スコア5000以上
+const YOURI_5000_MORE = 
+[
+  ["youri_magao_tere", "上手だね　感心しちゃう", "すごーい"],
+  ["youri_magao_bikkuri", "ここまで来るのって", "けっこうむずかしいんだよ", "すごーい"],
+  ["youri_magao_onpu", "すごいね", "こういうパズル　得意？", "すごーい"],
+  ["youri_egao_onpu", "いっぱい消せると", "気持ちいよね♪", "笑う"],
+  ["youri_egao_heart", "尊敬しちゃう！", "コツ　教えてほしいな", "すごーい"]
+];
+
+//スコア10000以上
+const YOURI_10000_MORE = 
+[
+  ["youri_egao", "君には　簡単すぎたかな？", "", "ほんとにすごい"],
+  ["youri_naki", "さすがのゆーりも", "こんなスコア　見たことないよ", "ほんとにすごい"]
+];
 
 //ゲームの終わりかけ(さくら)
 //200点以下
@@ -197,8 +214,23 @@ const YOURI_PREV_MORE =
 const YOURI_DELETE_BUTTON =
   [
     ["youri_magao", "1マス選んで", "消せるよ"],
-    ["youri_magao", "30個繋げたら", "使わせてあげる"]
-  ]
+    ["youri_magao", "20個繋げたら", "使わせてあげる", "えっへん"]
+  ];
+
+  //ボイスボタン
+  const YOURI_VOICE_BUTTON = 
+  [
+    ["youri_egao", "ゆーりの声", "聞きたくなっちゃった？", "やったーわーい"],
+    ["youri_magao", "消しちゃうの？", "さみしいけど　仕方ないね", "えー"]
+  ];
+
+  //サウンドボタン
+  const YOURI_SOUND_BUTTON = 
+  [
+    ["youri_egao_onpu", "集中したいの？", "じゃあ　BGMを消すね♪"],
+    ["youri_magao", "はーい", "効果音もBGMもナシね"],
+    ["youri_egao_onpu", "消すときの音って", "テンション　あがるよね♪"]
+  ];
 
 //次ステージ条件(残り数)
 //1～3
@@ -601,6 +633,8 @@ async function handleClick(row, col) {
     score += nowScore;
     document.getElementById('score').textContent = score;
     var scoreInt = parseInt(score);
+    var prevScore = document.getElementById('prev-score').getAttribute('value');
+    var prevScorent = parseInt(prevScore);
     // 前回消した個数を取得
     var prevCell = document.getElementById('prev-cell').getAttribute('value');
     var prevCellInt = parseInt(prevCell);
@@ -612,23 +646,25 @@ async function handleClick(row, col) {
     // ゆーりちゃん表示用
     var youriValueView = 0;
 
-    // 繋げた数が30個以上
-    if (group.length >= 30) {
-      changeYouri(YOURI_DELETE_MORE);
+    if(group.length >= 20){
       // 1マス削除を活性化
       const deleteButton = document.getElementById('delete-button');
       deleteButton.removeEventListener('click', deleteButtonNone);
       deleteButton.addEventListener('click', aloneDeleteClick);
       deleteButton.src = "./image/pickel.png";
     }
+
+    // スコア1万点超え
+    if (scoreInt >= 10000 && prevScore < 10000) {
+      changeYouri(YOURI_SCORE_OVER);
+    }
+    // 繋げた数が30個以上
+    else if (group.length >= 30) {
+      changeYouri(YOURI_DELETE_MORE);
+    }
     // 10個を連続で消した
     else if (group.length >= 10 && prevCellInt >= 10) {
       changeYouri(YOURI_DELETE_COMBO);
-    }
-    // スコア1万点超え
-    else if (scoreInt >= 10000) {
-      changeYouri(YOURI_SCORE_OVER);
-
     }
     // 20個以下
     else if (totalCountInt <= 20) {
@@ -665,6 +701,15 @@ async function handleClick(row, col) {
     }
     // デフォルトの設定
     else {
+      if(color == "youri"){
+        // 1/10の確率でボイス
+        var randomVoice = Math.floor(Math.random() * 9);
+
+        if(randomVoice == 0){
+          // ボイス
+          youriVoice("きゅん");
+        }
+      }
       changeYouri(YOURI_DEFAULT);
     }
 
@@ -735,6 +780,14 @@ function removeGroupWithAnimation(group) {
 }
 
 function playPopSound() {
+  const soundButton = document.getElementById('sound-button');
+  const soundButtonValue = soundButton.getAttribute("value");
+
+  if(soundButtonValue == "2"){
+    // OFFなら鳴らさない
+    return;
+  }
+
   if (!audioContext) {
     audioContext = new (window.AudioContext || window.webkitAudioContext)();
   }
@@ -809,7 +862,17 @@ function startOver(nextFlag) {
   // 条件合致なら次のステージへ
   if (nextFlag) {
     score = document.getElementById('score').innerHTML;
-    score = parseInt(score) + 1000;
+    const totalCount = document.getElementById('total-count-view').innerHTML;
+    var totalCountInt = parseInt(totalCount);
+    // ボーナスの点数を計算
+    var bonusPoint = 100 + ((20 - totalCountInt) * 50);
+
+    if(totalCountInt == 0){
+      // 全消しならさらにボーナス
+      bonusPoint += 400;
+    }
+
+    score = parseInt(score) + bonusPoint;
     stage = document.getElementById('stage').innerHTML;
     document.getElementById('stage').innerHTML = parseInt(stage) + 1;
     document.getElementById('prev-score').setAttribute("value", score);
@@ -882,7 +945,7 @@ function openResult(score) {
 
       //残り個数設定
       restColorMessage = YOURI_STAGE_TRANS[1][2].replace("restColor", STAGE_EARLY);
-      changeYouri([[YOURI_STAGE_TRANS[1][0], YOURI_STAGE_TRANS[1][1], restColorMessage]]);
+      changeYouri([[YOURI_STAGE_TRANS[1][0], YOURI_STAGE_TRANS[1][1], restColorMessage, YOURI_STAGE_TRANS[1][3]]]);
 
       resultPoint.innerHTML = POPUP_MESSAGE[1][0];
       resultPoint2.innerHTML = POPUP_MESSAGE[1][1];
@@ -900,7 +963,7 @@ function openResult(score) {
 
       //残り個数設定
       restColorMessage = YOURI_STAGE_TRANS[1][2].replace("restColor", STAGE_MID);
-      changeYouri([[YOURI_STAGE_TRANS[1][0], YOURI_STAGE_TRANS[1][1], restColorMessage]]);
+      changeYouri([[YOURI_STAGE_TRANS[1][0], YOURI_STAGE_TRANS[1][1], restColorMessage, YOURI_STAGE_TRANS[1][3]]]);
 
       resultPoint.innerHTML = POPUP_MESSAGE[1][0];
       resultPoint2.innerHTML = POPUP_MESSAGE[1][1];
@@ -918,7 +981,7 @@ function openResult(score) {
 
       //残り個数設定
       restColorMessage = YOURI_STAGE_TRANS[1][2].replace("restColor", STAGE_MID);
-      changeYouri([[YOURI_STAGE_TRANS[1][0], YOURI_STAGE_TRANS[1][1], restColorMessage]]);
+      changeYouri([[YOURI_STAGE_TRANS[1][0], YOURI_STAGE_TRANS[1][1], restColorMessage, YOURI_STAGE_TRANS[1][3]]]);
 
       resultPoint.innerHTML = POPUP_MESSAGE[1][0];
       resultPoint2.innerHTML = POPUP_MESSAGE[1][1];
@@ -936,7 +999,7 @@ function openResult(score) {
 
       //残り個数設定
       restColorMessage = YOURI_STAGE_TRANS[1][2].replace("restColor", STAGE_FIN);
-      changeYouri([[YOURI_STAGE_TRANS[1][0], YOURI_STAGE_TRANS[1][1], restColorMessage]]);
+      changeYouri([[YOURI_STAGE_TRANS[1][0], YOURI_STAGE_TRANS[1][1], restColorMessage, YOURI_STAGE_TRANS[1][3]]]);
 
       resultPoint.innerHTML = POPUP_MESSAGE[1][0];
       resultPoint2.innerHTML = POPUP_MESSAGE[1][1];
@@ -954,7 +1017,7 @@ function openResult(score) {
 
       //残り個数設定
       restColorMessage = YOURI_STAGE_TRANS[1][2].replace("restColor", STAGE_FIN);
-      changeYouri([[YOURI_STAGE_TRANS[1][0], YOURI_STAGE_TRANS[1][1], restColorMessage]]);
+      changeYouri([[YOURI_STAGE_TRANS[1][0], YOURI_STAGE_TRANS[1][1], restColorMessage, YOURI_STAGE_TRANS[1][3]]]);
 
       resultPoint.innerHTML = POPUP_MESSAGE[1][0];
       resultPoint2.innerHTML = POPUP_MESSAGE[1][1];
@@ -999,6 +1062,12 @@ function changeYouri(mode, youriSelectValue) {
 
   document.getElementById('countSelect').textContent = mode[youriSelectValue][1];
   document.getElementById('nowScore').textContent = mode[youriSelectValue][2];
+
+  if(mode[youriSelectValue][3] != undefined){
+    // ボイス再生
+    youriVoice(mode[youriSelectValue][3]);
+  }
+
 }
 
 function clickYouri() {
@@ -1012,29 +1081,42 @@ function clickYouri() {
     changeYouri(YOURI_1_TO_10, youriValue - 1);
   }
   else {
-    // 3000点未満
-    if (score < 3000) {
+    // 1500点未満
+    if (score < 1500) {
 
       var youriValueView = youriValue - 11;
 
-      if (youriValueView > YOURI_3000_LESS.length - 1) {
-        youriValueView = YOURI_3000_LESS.length - 1;
+      if (youriValueView > YOURI_1500_LESS.length - 1) {
+        youriValueView = YOURI_1500_LESS.length - 1;
       }
 
-      changeYouri(YOURI_3000_LESS, youriValueView);
+      changeYouri(YOURI_1500_LESS, youriValueView);
 
     }
-    // 3000点以上かつ11回目
-    else if (score >= 3000 && youriValue == 11) {
+    // 1500点以上かつ11回目
+    else if (score >= 1500 && youriValue == 11) {
+      changeYouri(YOURI_1500_MORE);
+    }
+    // 1500点以上3000点未満
+    else if (score >= 1500 && score < 3000 && youriValue >= 12) {
+      changeYouri(YOURI_1500_MORE_3000_LESS);
+    }
+    // 3000点以上
+    else if (score >= 3000 && score < 5000 && youriValue >= 12) {
       changeYouri(YOURI_3000_MORE);
     }
-    // 3000点以上5000点未満
-    else if (score >= 3000 && score < 5000 && youriValue >= 12) {
-      changeYouri(YOURI_3000_MORE_5000_LESS);
-    }
     // 5000点以上
-    else if (score >= 5000 && youriValue >= 12) {
-      changeYouri(YOURI_5000_MORE);
+    else if (score >= 5000 && score < 10000 && youriValue >= 12){
+      // セリフ配列の結合
+      var youri_text = concatTwoDimensionalArray(YOURI_3000_MORE, YOURI_5000_MORE, 0);
+      changeYouri(youri_text);
+    }
+    // 10000点以上
+    else if (score >= 10000 && youriValue >= 12){
+      // セリフ配列の結合
+      var youri_text = concatTwoDimensionalArray(YOURI_3000_MORE, YOURI_5000_MORE, 0);
+      var youri_text2 = concatTwoDimensionalArray(youri_text, YOURI_10000_MORE, 0);
+      changeYouri(youri_text2);
     }
   }
 
@@ -1213,7 +1295,8 @@ function aloneDeleteSelect(row, col) {
       break;
     }
   }
-  playPopSound();
+  //playPopSound();
+  youriVoice("それでいいの？");
 }
 
 async function aloneDelete(row, col) {
@@ -1243,12 +1326,128 @@ async function aloneDelete(row, col) {
   renderBoard();
 
   changeYouri(YOURI_DEFAULT);
+  youriVoice("バイバーイ");
 }
 
 function deleteButtonNone() {
   changeYouri(YOURI_DELETE_BUTTON, 1);
 }
 
+function soundSelect(){
+  const soundButton = document.getElementById('sound-button');
+  const soundButtonValue = soundButton.getAttribute("value");
+
+  if(soundButtonValue == "0"){
+    // BGMOFFからON
+    soundButton.setAttribute("value", "1");
+    soundButton.src = "./image/sound_on.png";
+
+    changeYouri(YOURI_SOUND_BUTTON, 2);
+
+    bgmSound("0");
+  }
+  else if(soundButtonValue == "1"){
+    // ONから完全OFF
+    soundButton.setAttribute("value", "2");
+    soundButton.src = "./image/sound_off.png";
+
+    changeYouri(YOURI_SOUND_BUTTON, 1);
+
+    bgmSound("1");
+  }
+  else if(soundButtonValue == "2"){
+    // 完全OFFからBGMOFF
+    soundButton.setAttribute("value", "0");
+    soundButton.src = "./image/sound_off_bgm.png";
+
+    changeYouri(YOURI_SOUND_BUTTON, 0);
+  }
+
+  playPopSound();
+
+}
+
+//2次元配列の結合
+function concatTwoDimensionalArray(array1, array2, axis){
+  if(axis != 1) axis = 0;
+  var array3 = [];
+  if(axis == 0){  //　縦方向の結合
+    array3 = array1.slice();
+    for(var i = 0; i < array2.length; i++){
+      array3.push(array2[i]);
+    }
+  }
+  else{  //　横方向の結合
+    for(var i = 0; i < array1.length; i++){
+      array3[i] = array1[i].concat(array2[i]);
+    }
+  }
+  return array3;
+}
+
+function bgmSound(soundButtonValue){
+  // bgmに関する制御
+
+  if(soundButtonValue == "1" || soundButtonValue == "2"){
+    //停止
+    document.getElementById('bgm').pause();
+  }
+  else if(soundButtonValue == "0"){
+    //再生
+    document.getElementById('bgm').volume = 0.05;
+    document.getElementById('bgm').play();
+  }
+
+}
+
+function youriVoiceSelect(){
+  // ゆーりちゃんボイスボタン制御
+  const voiceButton = document.getElementById('voice-button');
+  const voiceButtonValue = voiceButton.getAttribute("value");
+
+  if(voiceButtonValue == "0"){
+    // ONからOFF
+    changeYouri(YOURI_VOICE_BUTTON, 1);
+    
+    voiceButton.setAttribute("value", "1");
+    voiceButton.src = "./image/youri_voice_off.png";
+  }
+  else if(voiceButtonValue == "1"){
+    // OFFからON
+    voiceButton.setAttribute("value", "0");
+    voiceButton.src = "./image/youri_voice_on.png";
+
+    changeYouri(YOURI_VOICE_BUTTON, 0);
+  }
+
+  //playPopSound();
+}
+
+function youriVoice(voiceName){
+  // ゆーりちゃんボイスに関する制御
+  const voiceButton = document.getElementById('voice-button');
+  const voiceButtonValue = voiceButton.getAttribute("value");
+
+  if(voiceButtonValue == "1"){
+    // OFFなら終了
+    return;
+  }
+  var youriVoice = document.getElementById('youri-voice');
+  youriVoice.src = './sounds/voice/' + voiceName + '.wav';
+  var playPromise = youriVoice.play();
+
+  if (playPromise !== undefined) {
+    playPromise.then(_ => {
+      // Automatic playback started!
+      // Show playing UI.
+    })
+    .catch(error => {
+      // Auto-play was prevented
+      // Show paused UI.
+    });
+  }
+  
+}
 
 document.getElementById('result-close').addEventListener('click', () => {
   result.style.display = "none";
@@ -1267,6 +1466,8 @@ document.getElementById('youri').addEventListener('click', clickYouri);
 document.getElementById('size-select').addEventListener('change', changeBoardSize);
 document.getElementById('prev-button').addEventListener('click', prevBoardCell);
 document.getElementById('delete-button').addEventListener('click', aloneDeleteClick);
+document.getElementById('sound-button').addEventListener('click', soundSelect);
+document.getElementById('voice-button').addEventListener('click', youriVoiceSelect);
 
 initializeBoard();
 renderBoard();
