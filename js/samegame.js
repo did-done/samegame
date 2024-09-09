@@ -1269,6 +1269,12 @@ function aloneDeleteClick() {
 }
 
 function aloneDeleteSelect(row, col) {
+
+  // 空白箇所なら終了
+  if(board[row][col] == null){
+    return;
+  }
+
   // 初期化(他の背景消し)
   const selectedCells = document.getElementsByClassName('select');
   var selectedCount = selectedCells.length;
