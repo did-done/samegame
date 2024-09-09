@@ -1160,6 +1160,17 @@ function prevBoardCell() {
     deleteButton.src = "./image/pickel.png";
   }
 
+  // 削除中か判定
+  var deleteFlag = document.getElementById('delete-flag');
+  var deleteFlagValue = deleteFlag.getAttribute("value");
+
+  if(deleteFlagValue == "1"){
+    // 戻す
+    deleteFlag.setAttribute("value", "0");
+    var deleteButton = document.getElementById('delete-button');
+    deleteButton.src = "./image/pickel.png";
+  }
+
   //前回30個消してたら非活性
   if(parseInt(prevCell) >= 30){
     var deleteButton = document.getElementById('delete-button');
@@ -1254,8 +1265,6 @@ function aloneDeleteClick() {
   }
   else {
     // 削除モード解除
-    //1マス選択するためにクリックアクションを変更
-    const cells = document.getElementsByClassName('cell');
 
     //盤面初期化
     renderBoard();
@@ -1276,7 +1285,7 @@ function aloneDeleteSelect(row, col) {
   }
 
   // 初期化(他の背景消し)
-  const selectedCells = document.getElementsByClassName('select');
+  const selectedCells = document.getElementsByClassName('delete-select');
   var selectedCount = selectedCells.length;
 
   var selectedValue;
@@ -1285,7 +1294,7 @@ function aloneDeleteSelect(row, col) {
       selectedValue = selectedCells[0].getAttribute('value');
       const [row, col] = selectedValue.split(',').map(Number);
       selectedCells[0].onclick = () => aloneDeleteClick(row, col);
-      selectedCells[0].classList.remove('select');
+      selectedCells[0].classList.remove('delete-select');
     }
   }
 
@@ -1296,7 +1305,7 @@ function aloneDeleteSelect(row, col) {
     cellValue = cells[i].getAttribute("value");
     var [cellRow, cellCol] = cellValue.split(",");
     if (cellRow == row && cellCol == col) {
-      cells[i].classList.add('select');
+      cells[i].classList.add('delete-select');
       cells[i].onclick = () => aloneDelete(row, col);
       break;
     }

@@ -206,6 +206,10 @@ html {
 }
 
 .cell.select {
+  background-color: #eecbff;
+}
+
+.cell.delete-select {
   background-color: #ff4e72;
 }
 
