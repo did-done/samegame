@@ -1394,7 +1394,7 @@ function bgmSound(soundButtonValue){
   }
   else if(soundButtonValue == "0"){
     //再生
-    document.getElementById('bgm').volume = 1;
+    //document.getElementById('bgm').volume = 1;
     document.getElementById('bgm').play();
   }
 
