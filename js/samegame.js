@@ -6,9 +6,15 @@ let BOARD_SIZE_X = parseInt(bordX);
 let BOARD_SIZE_Y = parseInt(bordY);
 let NOW_BOARD_NAME = boardName;
 
+const result = document.getElementById('result');
+const resultBg = document.getElementById('result-bg');
+
+const ranking = document.getElementById('ranking');
+const rankingBg = document.getElementById('ranking-bg');
+
 const COLORS = ['youri', 'ribbon', 'fox', 'bird', 'cat'];
 // デバッグ用
-//const COLORS = ['youri', "cat"];
+//const COLORS = ['youri'];
 
 let board = [];
 let score = 0;
@@ -108,7 +114,7 @@ const YOURI_1500_MORE_3000_LESS =
     ["youri_magao", "なあに？ほめてほしいの？", "", "なあに"],
     ["youri_magao", "もっとお話ししたいの？んー", "もうちょっと頑張ったらね♪", "笑う"],
     ["youri_magao", "とても悲しいことがあったの", "うまく　思い出せないけど……"],
-    ["youri_egao", "うちに　遊びに来てくれたら", "もっと　色々お話しできるよ", "えっへん"],
+    ["youri_egao", "うちに　遊びに来てくれたら", "もっと　色々お話しできるよ", "笑う"],
     ["youri_egao", "みんなが沢山応援してくれたら", "昔のこと　思い出せるかな？"]
   ];
 
@@ -118,7 +124,7 @@ const YOURI_3000_MORE =
     ["youri_magao", "お話ししたいの？", "いいよ　ちょっと休憩だね", "笑う"],
     ["youri_magao", "ゆーりの好きな色は　むらさきだよ", ""],
     ["youri_egao", "きゅうりとこんにゃくが好き", "プレゼント　大歓迎だよ♪"],
-    ["youri_egao", "うちに　遊びに来てくれたら", "もっと　色々お話しできるよ", "えっへん"],
+    ["youri_egao", "うちに　遊びに来てくれたら", "もっと　色々お話しできるよ", "笑う"],
     ["youri_magao", "とても悲しいことがあったの", "うまく　思い出せないけど……"],
     ["youri_egao", "みんなが沢山応援してくれたら", "昔のこと　思い出せるかな？"],
     ["youri_magao", "ゆーり　絵を描くのが好きなの", "みんなの絵も　沢山見たいな"],
@@ -134,28 +140,28 @@ const YOURI_3000_MORE =
     ["youri_egao_ase2", "昨日の夕飯？　うーん　ゆーり", "そういうの忘れちゃうんだよね"],
     ["youri_magao", "小説もマンガもめちゃ読むよ", "家じゅう本だらけ　床抜け寸前"],
     ["youri_magao", "ゆーり　朗読も得意なんだ", "時々　みんなに披露してるよ", "えっへん"],
-    ["youri_naki_heart", "好きなゲーム？", "ゼルダ！！！！！", "えっへん"],
+    ["youri_naki_heart", "好きなゲーム？", "ゼルダ！！！！！", "笑う"],
     ["youri_egao_tere", "ゼルダのことなら", "原稿用紙100枚ぶん　語れるよ", "えっへん"],
     ["youri_egao", "グッズショップ「柊木堂」で", "ゆーりのグッズが手に入るよ", "えっへん"],
     ["youri_naki", "ゆーり暑いの　にがて", "寒いのも　にがて", "うぅ…"]
   ];
 
 //スコア5000以上
-const YOURI_5000_MORE = 
-[
-  ["youri_magao_tere", "上手だね　感心しちゃう", "すごーい"],
-  ["youri_magao_bikkuri", "ここまで来るのって", "けっこうむずかしいんだよ", "すごーい"],
-  ["youri_magao_onpu", "すごいね", "こういうパズル　得意？", "すごーい"],
-  ["youri_egao_onpu", "いっぱい消せると", "気持ちいよね♪", "笑う"],
-  ["youri_egao_heart", "尊敬しちゃう！", "コツ　教えてほしいな", "すごーい"]
-];
+const YOURI_5000_MORE =
+  [
+    ["youri_magao_tere", "上手だね　感心しちゃう", "すごーい"],
+    ["youri_magao_bikkuri", "ここまで来るのって", "けっこうむずかしいんだよ", "すごーい"],
+    ["youri_magao_onpu", "すごいね", "こういうパズル　得意？", "すごーい"],
+    ["youri_egao_onpu", "いっぱい消せると", "気持ちいよね♪", "笑う"],
+    ["youri_egao_heart", "尊敬しちゃう！", "コツ　教えてほしいな", "すごーい"]
+  ];
 
 //スコア10000以上
-const YOURI_10000_MORE = 
-[
-  ["youri_egao", "君には　簡単すぎたかな？", "", "ほんとにすごい"],
-  ["youri_naki", "さすがのゆーりも", "こんなスコア　見たことないよ", "ほんとにすごい"]
-];
+const YOURI_10000_MORE =
+  [
+    ["youri_egao", "君には　簡単すぎたかな？", "", "ほんとにすごい"],
+    ["youri_naki", "さすがのゆーりも", "こんなスコア　見たことないよ", "ほんとにすごい"]
+  ];
 
 //ゲームの終わりかけ(さくら)
 //200点以下
@@ -217,15 +223,15 @@ const YOURI_DELETE_BUTTON =
     ["youri_magao", "20個繋げたら", "使わせてあげる", "えっへん"]
   ];
 
-  //ボイスボタン
-  const YOURI_VOICE_BUTTON = 
+//ボイスボタン
+const YOURI_VOICE_BUTTON =
   [
     ["youri_egao", "ゆーりの声", "聞きたくなっちゃった？", "やったーわーい"],
     ["youri_magao", "消しちゃうの？", "さみしいけど　仕方ないね", "えー"]
   ];
 
-  //サウンドボタン
-  const YOURI_SOUND_BUTTON = 
+//サウンドボタン
+const YOURI_SOUND_BUTTON =
   [
     ["youri_egao_onpu", "集中したいの？", "じゃあ　BGMを消すね♪"],
     ["youri_magao", "はーい", "効果音もBGMもナシね"],
@@ -649,7 +655,7 @@ async function handleClick(row, col) {
     // ゆーりちゃん表示用
     var youriValueView = 0;
 
-    if(group.length >= DELETE_ITEM_REUSE){
+    if (group.length >= DELETE_ITEM_REUSE) {
       // 1マス削除を活性化
       const deleteButton = document.getElementById('delete-button');
       deleteButton.removeEventListener('click', deleteButtonNone);
@@ -704,11 +710,11 @@ async function handleClick(row, col) {
     }
     // デフォルトの設定
     else {
-      if(color == "youri"){
+      if (color == "youri") {
         // 1/10の確率でボイス
         var randomVoice = Math.floor(Math.random() * 9);
 
-        if(randomVoice == 0){
+        if (randomVoice == 0) {
           // ボイス
           youriVoice("きゅん");
         }
@@ -786,7 +792,7 @@ function playPopSound() {
   const soundButton = document.getElementById('sound-button');
   const soundButtonValue = soundButton.getAttribute("value");
 
-  if(soundButtonValue == "2"){
+  if (soundButtonValue == "2") {
     // OFFなら鳴らさない
     return;
   }
@@ -870,7 +876,7 @@ function startOver(nextFlag) {
     // ボーナスの点数を計算
     var bonusPoint = 100 + ((20 - totalCountInt) * 50);
 
-    if(totalCountInt == 0){
+    if (totalCountInt == 0) {
       // 全消しならさらにボーナス
       bonusPoint += 400;
     }
@@ -919,9 +925,6 @@ function changeBoardSize() {
 function pointCalc(count) {
   return (count - 2) * (count - 2);
 }
-
-const result = document.getElementById('result');
-const resultBg = document.getElementById('result-bg');
 
 function openResult(score) {
   const resultPoint = document.getElementById('resultPoint');
@@ -1053,6 +1056,11 @@ function closeResult() {
   resultBg.style.display = "none";
 }
 
+function closeRanking() {
+  ranking.style.display = "none";
+  rankingBg.style.display = "none";
+}
+
 function changeYouri(mode, youriSelectValue) {
 
   if (youriSelectValue == undefined) {
@@ -1066,7 +1074,7 @@ function changeYouri(mode, youriSelectValue) {
   document.getElementById('countSelect').textContent = mode[youriSelectValue][1];
   document.getElementById('nowScore').textContent = mode[youriSelectValue][2];
 
-  if(mode[youriSelectValue][3] != undefined){
+  if (mode[youriSelectValue][3] != undefined) {
     // ボイス再生
     youriVoice(mode[youriSelectValue][3]);
   }
@@ -1109,13 +1117,13 @@ function clickYouri() {
       changeYouri(YOURI_3000_MORE);
     }
     // 5000点以上
-    else if (score >= 5000 && score < 10000 && youriValue >= 12){
+    else if (score >= 5000 && score < 10000 && youriValue >= 12) {
       // セリフ配列の結合
       var youri_text = concatTwoDimensionalArray(YOURI_3000_MORE, YOURI_5000_MORE, 0);
       changeYouri(youri_text);
     }
     // 10000点以上
-    else if (score >= 10000 && youriValue >= 12){
+    else if (score >= 10000 && youriValue >= 12) {
       // セリフ配列の結合
       var youri_text = concatTwoDimensionalArray(YOURI_3000_MORE, YOURI_5000_MORE, 0);
       var youri_text2 = concatTwoDimensionalArray(youri_text, YOURI_10000_MORE, 0);
@@ -1167,7 +1175,7 @@ function prevBoardCell() {
   var deleteFlag = document.getElementById('delete-flag');
   var deleteFlagValue = deleteFlag.getAttribute("value");
 
-  if(deleteFlagValue == "1"){
+  if (deleteFlagValue == "1") {
     // 戻す
     deleteFlag.setAttribute("value", "0");
     var deleteButton = document.getElementById('delete-button');
@@ -1175,7 +1183,7 @@ function prevBoardCell() {
   }
 
   //前回20個消してたら非活性
-  if(parseInt(prevCell) >= DELETE_ITEM_REUSE){
+  if (parseInt(prevCell) >= DELETE_ITEM_REUSE) {
     var deleteButton = document.getElementById('delete-button');
     deleteButton.src = "./image/pickel_black.png";
     deleteButton.removeEventListener("click", aloneDeleteClick);
@@ -1283,7 +1291,7 @@ function aloneDeleteClick() {
 function aloneDeleteSelect(row, col) {
 
   // 空白箇所なら終了
-  if(board[row][col] == null){
+  if (board[row][col] == null) {
     return;
   }
 
@@ -1351,11 +1359,11 @@ function deleteButtonNone() {
   changeYouri(YOURI_DELETE_BUTTON, 1);
 }
 
-function soundSelect(){
+function soundSelect() {
   const soundButton = document.getElementById('sound-button');
   const soundButtonValue = soundButton.getAttribute("value");
 
-  if(soundButtonValue == "0"){
+  if (soundButtonValue == "0") {
     // BGMOFFからON
     soundButton.setAttribute("value", "1");
     soundButton.src = "./image/sound_on.png";
@@ -1364,7 +1372,7 @@ function soundSelect(){
 
     bgmSound("0");
   }
-  else if(soundButtonValue == "1"){
+  else if (soundButtonValue == "1") {
     // ONから完全OFF
     soundButton.setAttribute("value", "2");
     soundButton.src = "./image/sound_off.png";
@@ -1373,7 +1381,7 @@ function soundSelect(){
 
     bgmSound("1");
   }
-  else if(soundButtonValue == "2"){
+  else if (soundButtonValue == "2") {
     // 完全OFFからBGMOFF
     soundButton.setAttribute("value", "0");
     soundButton.src = "./image/sound_off_bgm.png";
@@ -1386,31 +1394,31 @@ function soundSelect(){
 }
 
 //2次元配列の結合
-function concatTwoDimensionalArray(array1, array2, axis){
-  if(axis != 1) axis = 0;
+function concatTwoDimensionalArray(array1, array2, axis) {
+  if (axis != 1) axis = 0;
   var array3 = [];
-  if(axis == 0){  //　縦方向の結合
+  if (axis == 0) {  //　縦方向の結合
     array3 = array1.slice();
-    for(var i = 0; i < array2.length; i++){
+    for (var i = 0; i < array2.length; i++) {
       array3.push(array2[i]);
     }
   }
-  else{  //　横方向の結合
-    for(var i = 0; i < array1.length; i++){
+  else {  //　横方向の結合
+    for (var i = 0; i < array1.length; i++) {
       array3[i] = array1[i].concat(array2[i]);
     }
   }
   return array3;
 }
 
-function bgmSound(soundButtonValue){
+function bgmSound(soundButtonValue) {
   // bgmに関する制御
 
-  if(soundButtonValue == "1" || soundButtonValue == "2"){
+  if (soundButtonValue == "1" || soundButtonValue == "2") {
     //停止
     document.getElementById('bgm').pause();
   }
-  else if(soundButtonValue == "0"){
+  else if (soundButtonValue == "0") {
     //再生
     //document.getElementById('bgm').volume = 1;
     document.getElementById('bgm').play();
@@ -1418,19 +1426,19 @@ function bgmSound(soundButtonValue){
 
 }
 
-function youriVoiceSelect(){
+function youriVoiceSelect() {
   // ゆーりちゃんボイスボタン制御
   const voiceButton = document.getElementById('voice-button');
   const voiceButtonValue = voiceButton.getAttribute("value");
 
-  if(voiceButtonValue == "0"){
+  if (voiceButtonValue == "0") {
     // ONからOFF
     changeYouri(YOURI_VOICE_BUTTON, 1);
-    
+
     voiceButton.setAttribute("value", "1");
     voiceButton.src = "./image/youri_voice_off.png";
   }
-  else if(voiceButtonValue == "1"){
+  else if (voiceButtonValue == "1") {
     // OFFからON
     voiceButton.setAttribute("value", "0");
     voiceButton.src = "./image/youri_voice_on.png";
@@ -1441,12 +1449,12 @@ function youriVoiceSelect(){
   //playPopSound();
 }
 
-function youriVoice(voiceName){
+function youriVoice(voiceName) {
   // ゆーりちゃんボイスに関する制御
   const voiceButton = document.getElementById('voice-button');
   const voiceButtonValue = voiceButton.getAttribute("value");
 
-  if(voiceButtonValue == "1"){
+  if (voiceButtonValue == "1") {
     // OFFなら終了
     return;
   }
@@ -1459,34 +1467,105 @@ function youriVoice(voiceName){
       // Automatic playback started!
       // Show playing UI.
     })
-    .catch(error => {
-      // Auto-play was prevented
-      // Show paused UI.
-    });
+      .catch(error => {
+        // Auto-play was prevented
+        // Show paused UI.
+      });
   }
-  
+
+}
+
+function dataCreate() {
+
+  var userName = document.getElementById('user-name').value;
+
+  if (userName == "") {
+    return;
+  }
+
+  var insertUserName = userName;
+  var insertScore = score;
+
+  $.ajax({
+    type: 'post',
+    async: false,
+    url: "../src/ranking.php",
+    data: { "username": insertUserName, "score": insertScore }
+  }).done(function (result) {
+    //非同期通信に成功したときの処理
+    console.log("done");
+  }).fail(function (result) {
+    //非同期通信に失敗したときの処理
+    console.log("fail");
+  }).always(function () {
+    console.log('complete');
+  });
+
+  $.ajax({
+    type: 'get',
+    async: false,
+    url: "../src/ranking_get.php",
+  }).done(function (result) {
+    //非同期通信に成功したときの処理
+    console.log("done");
+    rankingView(result);
+  }).fail(function (result) {
+    //非同期通信に失敗したときの処理
+    console.log("fail");
+  }).always(function () {
+    console.log('complete');
+  });
+
+  result.style.display = "none";
+  resultBg.style.display = "none";
+
+  ranking.style.display = "block";
+  rankingBg.style.display = "block";
+}
+
+function rankingView(rankingData) {
+  // ランキングデータを分解しながら表示
+  let rankingList = document.getElementById('ranking-list');
+  rankingList.innerHTML = '';
+  rankingData.forEach(function (rank) {
+    let li = document.createElement('li');
+    li.textContent = rank.username + ': ' + rank.score;
+    rankingList.appendChild(li);
+  });
 }
 
 document.getElementById('result-close').addEventListener('click', () => {
-  result.style.display = "none";
-  resultBg.style.display = "none";
-});
-
-document.getElementById('result').addEventListener('click', (e) => {
-  if (e.target === result) {
     result.style.display = "none";
     resultBg.style.display = "none";
-  }
-});
+  });
 
-document.getElementById('restart').addEventListener('click', restart);
-document.getElementById('youri').addEventListener('click', clickYouri);
-document.getElementById('size-select').addEventListener('change', changeBoardSize);
-document.getElementById('prev-button').addEventListener('click', prevBoardCell);
-document.getElementById('delete-button').addEventListener('click', aloneDeleteClick);
-document.getElementById('sound-button').addEventListener('click', soundSelect);
-document.getElementById('voice-button').addEventListener('click', youriVoiceSelect);
+  document.getElementById('result').addEventListener('click', (e) => {
+    if (e.target === result) {
+      result.style.display = "none";
+      resultBg.style.display = "none";
+    }
+  });
 
-initializeBoard();
-renderBoard();
+  document.getElementById('ranking-close').addEventListener('click', () => {
+    ranking.style.display = "none";
+    rankingBg.style.display = "none";
+  });
+
+  document.getElementById('ranking').addEventListener('click', (e) => {
+    if (e.target === ranking) {
+      ranking.style.display = "none";
+      rankingBg.style.display = "none";
+    }
+  });
+
+  document.getElementById('restart').addEventListener('click', restart);
+  document.getElementById('youri').addEventListener('click', clickYouri);
+  document.getElementById('size-select').addEventListener('change', changeBoardSize);
+  document.getElementById('prev-button').addEventListener('click', prevBoardCell);
+  document.getElementById('delete-button').addEventListener('click', aloneDeleteClick);
+  document.getElementById('sound-button').addEventListener('click', soundSelect);
+  document.getElementById('voice-button').addEventListener('click', youriVoiceSelect);
+
+  initializeBoard();
+  renderBoard();
 
