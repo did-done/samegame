@@ -927,6 +927,9 @@ function pointCalc(count) {
 }
 
 function openResult(score) {
+  // デバッグ用
+  //document.getElementById('result-insert-area').style.display = "block";
+
   const resultPoint = document.getElementById('resultPoint');
   const resultPoint2 = document.getElementById('resultPoint2');
 
@@ -961,6 +964,9 @@ function openResult(score) {
 
       resultPoint.innerHTML = POPUP_MESSAGE[0][0];
       resultPoint2.innerHTML = scoreMessage;
+
+      //詰んだので出すもの
+      puzzleFinish();
     }
   }
   else if (nowStageInt == 3) {
@@ -979,6 +985,9 @@ function openResult(score) {
 
       resultPoint.innerHTML = POPUP_MESSAGE[0][0];
       resultPoint2.innerHTML = scoreMessage;
+
+      //詰んだので出すもの
+      puzzleFinish();
     }
   }
   else if (nowStageInt >= 4 && nowStageInt <= 5) {
@@ -997,6 +1006,9 @@ function openResult(score) {
 
       resultPoint.innerHTML = POPUP_MESSAGE[0][0];
       resultPoint2.innerHTML = scoreMessage;
+
+      //詰んだので出すもの
+      puzzleFinish();
     }
   }
   else if (nowStageInt == 6) {
@@ -1015,6 +1027,9 @@ function openResult(score) {
 
       resultPoint.innerHTML = POPUP_MESSAGE[0][0];
       resultPoint2.innerHTML = scoreMessage;
+
+      //詰んだので出すもの
+      puzzleFinish();
     }
   }
   else if (nowStageInt >= 7 && nowStageInt < 10) {
@@ -1033,6 +1048,9 @@ function openResult(score) {
 
       resultPoint.innerHTML = POPUP_MESSAGE[0][0];
       resultPoint2.innerHTML = scoreMessage;
+
+      //詰んだので出すもの
+      puzzleFinish();
     }
   }
   else if (nowStageInt == 10) {
@@ -1041,14 +1059,43 @@ function openResult(score) {
 
       resultPoint.innerHTML = POPUP_MESSAGE[0][0];
       resultPoint2.innerHTML = scoreMessage;
+
+      //詰んだので出すもの
+      puzzleFinish();
     }
     else {
       changeYouri(YOURI_STAGE_TRANS, 7);
 
       resultPoint.innerHTML = POPUP_MESSAGE[0][0];
       resultPoint2.innerHTML = scoreMessage;
+
+      //詰んだので出すもの
+      puzzleFinish();
     }
   }
+}
+
+function puzzleFinish() {
+
+  //詰んだら出すもの
+
+  // ボードコピー(戻るの抑制)
+  prevBoard = boardCopy(board);
+
+  // 登録領域表示
+  resuleInsertView();
+
+  // 1マス削除を非活性
+  var deleteButton = document.getElementById('delete-button');
+  deleteButton.src = "./image/pickel_black.png";
+  deleteButton.removeEventListener("click", aloneDeleteClick);
+  deleteButton.addEventListener("click", deleteButtonNone);
+
+}
+
+function resuleInsertView() {
+  //登録領域表示
+  //document.getElementById('result-insert-area').style.display = "block";
 }
 
 function closeResult() {
@@ -1475,9 +1522,11 @@ function youriVoice(voiceName) {
 
 }
 
-function dataCreate() {
+function rankingCreate() {
+  //DBデータ書き込み
 
   var userName = document.getElementById('user-name').value;
+  var comment = document.getElementById('comment').value;
 
   if (userName == "") {
     return;
@@ -1485,35 +1534,49 @@ function dataCreate() {
 
   var insertUserName = userName;
   var insertScore = score;
+  var insertComment = comment;
 
   $.ajax({
     type: 'post',
     async: false,
     url: "../src/ranking.php",
-    data: { "username": insertUserName, "score": insertScore }
+    data: {
+      "username": insertUserName,
+      "score": insertScore,
+      "comment": insertComment,
+      "board": NOW_BOARD_NAME
+    }
   }).done(function (result) {
     //非同期通信に成功したときの処理
-    console.log("done");
+    //console.log("done");
   }).fail(function (result) {
     //非同期通信に失敗したときの処理
     console.log("fail");
   }).always(function () {
-    console.log('complete');
+    //console.log('complete');
   });
 
+  rankingSelect();
+}
+
+function rankingSelect() {
+  // DBデータ受け取り
   $.ajax({
     type: 'get',
     async: false,
     url: "../src/ranking_get.php",
+    data: {
+      "board": NOW_BOARD_NAME
+    }
   }).done(function (result) {
     //非同期通信に成功したときの処理
-    console.log("done");
+    //console.log("done");
     rankingView(result);
   }).fail(function (result) {
     //非同期通信に失敗したときの処理
-    console.log("fail");
+    //console.log("fail");
   }).always(function () {
-    console.log('complete');
+    //console.log('complete');
   });
 
   result.style.display = "none";
@@ -1521,51 +1584,85 @@ function dataCreate() {
 
   ranking.style.display = "block";
   rankingBg.style.display = "block";
+
 }
 
 function rankingView(rankingData) {
   // ランキングデータを分解しながら表示
   let rankingList = document.getElementById('ranking-list');
   rankingList.innerHTML = '';
+
+  // ヘッダー
+  let headerTr = document.createElement('tr');
+  let rankTh = document.createElement('th');
+  rankTh.textContent = "順位";
+  headerTr.appendChild(rankTh);
+  let usernameTh = document.createElement('th');
+  usernameTh.textContent = "ユーザー";
+  headerTr.appendChild(usernameTh);
+  let scoreTh = document.createElement('th');
+  scoreTh.textContent = "スコア";
+  headerTr.appendChild(scoreTh);
+  let commentTh = document.createElement('th');
+  commentTh.textContent = "コメント";
+  headerTr.appendChild(commentTh);
+  rankingList.appendChild(headerTr);
+
+  // ランキングデータ
+  var rankingInt = 1;
   rankingData.forEach(function (rank) {
-    let li = document.createElement('li');
-    li.textContent = rank.username + ': ' + rank.score;
-    rankingList.appendChild(li);
+    let tr = document.createElement('tr');
+    let rankTd = document.createElement('td');
+    rankTd.textContent = rankingInt + "位";
+    tr.appendChild(rankTd);
+    let usernameTd = document.createElement('td');
+    usernameTd.textContent = rank.username;
+    tr.appendChild(usernameTd);
+    let scoreTd = document.createElement('td');
+    scoreTd.textContent = rank.score;
+    tr.appendChild(scoreTd);
+    let commentTd = document.createElement('td');
+    commentTd.textContent = rank.comment;
+    //commentTd.textContent = "";
+    tr.appendChild(commentTd);
+    rankingList.appendChild(tr);
+
+    rankingInt++;
   });
 }
 
 document.getElementById('result-close').addEventListener('click', () => {
+  result.style.display = "none";
+  resultBg.style.display = "none";
+});
+/*
+document.getElementById('result').addEventListener('click', (e) => {
+  if (e.target === result) {
     result.style.display = "none";
     resultBg.style.display = "none";
-  });
-
-  document.getElementById('result').addEventListener('click', (e) => {
-    if (e.target === result) {
-      result.style.display = "none";
-      resultBg.style.display = "none";
-    }
-  });
-
-  document.getElementById('ranking-close').addEventListener('click', () => {
+  }
+});
+*/
+document.getElementById('ranking-close').addEventListener('click', () => {
+  ranking.style.display = "none";
+  rankingBg.style.display = "none";
+});
+/*
+document.getElementById('ranking').addEventListener('click', (e) => {
+  if (e.target === ranking) {
     ranking.style.display = "none";
     rankingBg.style.display = "none";
-  });
+  }
+});
+*/
+document.getElementById('restart').addEventListener('click', restart);
+document.getElementById('youri').addEventListener('click', clickYouri);
+document.getElementById('size-select').addEventListener('change', changeBoardSize);
+document.getElementById('prev-button').addEventListener('click', prevBoardCell);
+document.getElementById('delete-button').addEventListener('click', aloneDeleteClick);
+document.getElementById('sound-button').addEventListener('click', soundSelect);
+document.getElementById('voice-button').addEventListener('click', youriVoiceSelect);
 
-  document.getElementById('ranking').addEventListener('click', (e) => {
-    if (e.target === ranking) {
-      ranking.style.display = "none";
-      rankingBg.style.display = "none";
-    }
-  });
-
-  document.getElementById('restart').addEventListener('click', restart);
-  document.getElementById('youri').addEventListener('click', clickYouri);
-  document.getElementById('size-select').addEventListener('change', changeBoardSize);
-  document.getElementById('prev-button').addEventListener('click', prevBoardCell);
-  document.getElementById('delete-button').addEventListener('click', aloneDeleteClick);
-  document.getElementById('sound-button').addEventListener('click', soundSelect);
-  document.getElementById('voice-button').addEventListener('click', youriVoiceSelect);
-
-  initializeBoard();
-  renderBoard();
+initializeBoard();
+renderBoard();
 
