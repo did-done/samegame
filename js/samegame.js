@@ -122,7 +122,7 @@ const YOURI_1500_MORE_3000_LESS =
 const YOURI_3000_MORE =
   [
     ["youri_magao", "お話ししたいの？", "いいよ　ちょっと休憩だね", "笑う"],
-    ["youri_magao", "ゆーりの好きな色は　むらさきだよ", ""],
+    ["youri_magao", "ゆーりの好きな色は", "むらさきだよ"],
     ["youri_egao", "きゅうりとこんにゃくが好き", "プレゼント　大歓迎だよ♪"],
     ["youri_egao", "うちに　遊びに来てくれたら", "もっと　色々お話しできるよ", "笑う"],
     ["youri_magao", "とても悲しいことがあったの", "うまく　思い出せないけど……"],
@@ -1094,8 +1094,9 @@ function puzzleFinish() {
 }
 
 function resuleInsertView() {
+  //githubではコメントアウト
   //登録領域表示
-  //document.getElementById('result-insert-area').style.display = "block";
+  document.getElementById('result-insert-area').style.display = "block";
 }
 
 function closeResult() {
@@ -1458,7 +1459,52 @@ function concatTwoDimensionalArray(array1, array2, axis) {
   return array3;
 }
 
-function bgmSound(soundButtonValue) {
+var context;
+var arrayBuffer;
+var audioBuffer;
+var source;
+
+function getArrayBuffer(url){
+  return new Promise(function(resolve){
+    var request = new XMLHttpRequest();
+    request.open('GET', url, true);
+    request.responseType = 'arraybuffer';
+    request.onload = function () {
+      arrayBuffer = request.response;
+      resolve();
+    };
+    request.send();
+  });
+}
+function createAudioBuffer(){
+  return new Promise(function(resolve){
+    context.decodeAudioData(arrayBuffer, function (buf) {
+      audioBuffer = buf;
+      resolve();
+    });
+  });
+}
+function createBuffer(){
+  return new Promise(function(resolve){
+    source = context.createBufferSource();
+    source.buffer = audioBuffer;
+    source.connect(context.destination);
+    resolve();
+  });
+}
+
+function playBGM(){
+  // ループ再生の設定
+  source.loop = true;
+  // ループ範囲開始位置 (今回は先頭から1秒の位置を指定)
+  source.loopStart = 1;
+  // ループ範囲終了位置 (今回は先頭から7秒の位置を指定)
+  source.loopEnd = 7;
+  // ループ再生開始
+  source.start(0);
+}
+
+async function bgmSound(soundButtonValue) {
   // bgmに関する制御
 
   if (soundButtonValue == "1" || soundButtonValue == "2") {
@@ -1468,7 +1514,9 @@ function bgmSound(soundButtonValue) {
   else if (soundButtonValue == "0") {
     //再生
     //document.getElementById('bgm').volume = 1;
-    document.getElementById('bgm').play();
+    //document.getElementById('bgm').play();
+    context = new AudioContext();
+    getArrayBuffer("./sounds/bgm.mp3").then(createAudioBuffer).then(createBuffer).then(playBGM);
   }
 
 }
@@ -1528,7 +1576,8 @@ function rankingCreate() {
   var userName = document.getElementById('user-name').value;
   var comment = document.getElementById('comment').value;
 
-  if (userName == "") {
+  if (userName == "" || userName.match(/^[\s\u00A0\u3000]+$/g)) {
+    document.getElementById('insert-message').style.display = "block";
     return;
   }
 
@@ -1581,6 +1630,8 @@ function rankingSelect() {
 
   result.style.display = "none";
   resultBg.style.display = "none";
+  document.getElementById('result-insert-area').style.display = "none";
+  document.getElementById('insert-message').style.display = "none";
 
   ranking.style.display = "block";
   rankingBg.style.display = "block";
@@ -1634,6 +1685,8 @@ function rankingView(rankingData) {
 document.getElementById('result-close').addEventListener('click', () => {
   result.style.display = "none";
   resultBg.style.display = "none";
+  document.getElementById('result-insert-area').style.display = "none";
+  document.getElementById('insert-message').style.display = "none";
 });
 /*
 document.getElementById('result').addEventListener('click', (e) => {
