@@ -1459,49 +1459,41 @@ function concatTwoDimensionalArray(array1, array2, axis) {
   return array3;
 }
 
-var context;
-var arrayBuffer;
-var audioBuffer;
-var source;
+var contextBGM;
+var arrayBufferBGM;
+var audioBufferBGM;
+var sourceBGM;
 
-function getArrayBuffer(url){
+function getArrayBufferBGM(url){
   return new Promise(function(resolve){
     var request = new XMLHttpRequest();
     request.open('GET', url, true);
     request.responseType = 'arraybuffer';
     request.onload = function () {
-      arrayBuffer = request.response;
+      arrayBufferBGM = request.response;
       resolve();
     };
     request.send();
   });
 }
-function createAudioBuffer(){
+function createAudioBufferBGM(){
   return new Promise(function(resolve){
-    context.decodeAudioData(arrayBuffer, function (buf) {
-      audioBuffer = buf;
+    contextBGM.decodeAudioData(arrayBufferBGM, function (buf) {
+      audioBufferBGM = buf;
       resolve();
     });
   });
 }
-function createBuffer(){
+function createBufferBGM(){
   return new Promise(function(resolve){
-    source = context.createBufferSource();
-    source.buffer = audioBuffer;
-    source.connect(context.destination);
+    sourceBGM = contextBGM.createBufferSource();
+    sourceBGM.buffer = audioBufferBGM;
+    sourceBGM.connect(contextBGM.destination);
+    // ループ再生の設定
+    sourceBGM.loop = true;
+    sourceBGM.start(0);
     resolve();
   });
-}
-
-function playBGM(){
-  // ループ再生の設定
-  source.loop = true;
-  // ループ再生開始
-  source.start(0);
-}
-
-function stopBGM() {
-  source.stop(0);
 }
 
 async function bgmSound(soundButtonValue) {
@@ -1510,14 +1502,14 @@ async function bgmSound(soundButtonValue) {
   if (soundButtonValue == "1" || soundButtonValue == "2") {
     //停止
     //document.getElementById('bgm').pause();
-    stopBGM();
+    sourceBGM.stop(0);
   }
   else if (soundButtonValue == "0") {
     //再生
     //document.getElementById('bgm').volume = 1;
     //document.getElementById('bgm').play();
-    context = new AudioContext();
-    getArrayBuffer("./sounds/bgm.mp3").then(createAudioBuffer).then(createBuffer).then(playBGM);
+    contextBGM = new AudioContext();
+    getArrayBufferBGM("./sounds/bgm.mp3").then(createAudioBufferBGM).then(createBufferBGM);
   }
 
 }
@@ -1545,6 +1537,43 @@ function youriVoiceSelect() {
   //playPopSound();
 }
 
+var contextYouri;
+var arrayBufferYouri;
+var audioBufferYouri;
+var sourceYouri;
+
+function getArrayBufferYouri(url){
+  return new Promise(function(resolve){
+    var request = new XMLHttpRequest();
+    request.open('GET', url, true);
+    request.responseType = 'arraybuffer';
+    request.onload = function () {
+      arrayBufferYouri = request.response;
+      resolve();
+    };
+    request.send();
+  });
+}
+function createAudioBufferYouri(){
+  return new Promise(function(resolve){
+    contextYouri.decodeAudioData(arrayBufferYouri, function (buf) {
+      audioBufferYouri = buf;
+      resolve();
+    });
+  });
+}
+function createBufferYouri(){
+  return new Promise(function(resolve){
+    sourceYouri = contextYouri.createBufferSource();
+    sourceYouri.buffer = audioBufferYouri;
+    sourceYouri.connect(contextYouri.destination);
+    // ループ再生の設定
+    sourceYouri.loop = false;
+    sourceYouri.start(0);
+    resolve();
+  });
+}
+
 function youriVoice(voiceName) {
   // ゆーりちゃんボイスに関する制御
   const voiceButton = document.getElementById('voice-button');
@@ -1555,19 +1584,22 @@ function youriVoice(voiceName) {
     return;
   }
   var youriVoice = document.getElementById('youri-voice');
-  youriVoice.src = './sounds/voice/' + voiceName + '.wav';
-  var playPromise = youriVoice.play();
+  // youriVoice.src = './sounds/voice/' + voiceName + '.wav';
+  var youriVoiceURL = './sounds/voice/' + voiceName + '.wav';
+  contextYouri = new AudioContext();
+  getArrayBufferYouri(youriVoiceURL).then(createAudioBufferYouri).then(createBufferYouri);
+  // var playPromise = youriVoice.play();
 
-  if (playPromise !== undefined) {
-    playPromise.then(_ => {
-      // Automatic playback started!
-      // Show playing UI.
-    })
-      .catch(error => {
-        // Auto-play was prevented
-        // Show paused UI.
-      });
-  }
+  // if (playPromise !== undefined) {
+  //   playPromise.then(_ => {
+  //     // Automatic playback started!
+  //     // Show playing UI.
+  //   })
+  //     .catch(error => {
+  //       // Auto-play was prevented
+  //       // Show paused UI.
+  //     });
+  // }
 
 }
 
