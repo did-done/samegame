@@ -1496,12 +1496,12 @@ function createBuffer(){
 function playBGM(){
   // ループ再生の設定
   source.loop = true;
-  // ループ範囲開始位置 (今回は先頭から1秒の位置を指定)
-  source.loopStart = 1;
-  // ループ範囲終了位置 (今回は先頭から7秒の位置を指定)
-  source.loopEnd = 7;
   // ループ再生開始
   source.start(0);
+}
+
+function stopBGM() {
+  source.stop(0);
 }
 
 async function bgmSound(soundButtonValue) {
@@ -1509,7 +1509,8 @@ async function bgmSound(soundButtonValue) {
 
   if (soundButtonValue == "1" || soundButtonValue == "2") {
     //停止
-    document.getElementById('bgm').pause();
+    //document.getElementById('bgm').pause();
+    stopBGM();
   }
   else if (soundButtonValue == "0") {
     //再生
